@@ -51,7 +51,7 @@ nav .nav-link.active {
 		<div class="col-sm-4">Model class:</div><div class="col-sm-2"><span style="background-color: #f6f8fa; font-family: monospace;">Model</span></div>
 		</div>
 		<div class="row">
-		<div class="col-sm-4">Number of samples:</div><div class="col-sm-2">25564</div>
+		<div class="col-sm-4">Number of samples:</div><div class="col-sm-2">22413</div>
 		</div>
 		<div class="row">
 		<div class="col-sm-4">Objective function:</div><div class="col-sm-2">MLW</div>
@@ -63,16 +63,22 @@ nav .nav-link.active {
 		Description in <b>semopy</b> syntax:
 		<div class="col-sm-9" style="background-color: #f6f8fa;max-width: 100%;width: 100%;border: 1px solid">
 		<pre style="font-family: monospace">
-School_Environment =~ E_S_RCRD
-Stress_Causes =~ M_STR + M_SLP_EN + M_LON + disturbed
-Suicidal_Factors =~ M_SUI_CON + M_SUI_ATT
-Family_Environment =~ haveparent + livefather + livemother + remarriaged
-Violence_Experience =~ violent
+    # 스트레스 요인
+    stress =~ M_STR
+    mood =~ M_SAD + M_LON + disturbed
+    family =~ E_SES + stepparent + countparent
+    grade =~ E_S_RCRD
+    livingspace =~ E_RES
 
-Stress_Causes ~ School_Environment + Family_Environment + Violence_Experience
-Suicidal_Factors ~ Stress_Causes
-
-M_SUI_ATT ~~ M_SUI_CON + M_STR
+    stress ~ grade + family + livingspace + mood
+    
+    # 자살 관련 계층적 관계
+    M_SUI_PLN ~ M_SUI_CON  # 자살 계획은 자살 생각(M_SUI_CON)에서 영향을 받음
+    M_SUI_ATT ~ M_SUI_PLN  # 자살 시도는 자살 계획(M_SUI_PLN)에서 영향을 받음
+    
+    
+    # 스트레스와 가족 요인이 자살 생각(M_SUI_CON)에 미치는 영향
+    M_SUI_CON ~ stress
 </pre>
 		</div>
 		<br>
@@ -85,7 +91,7 @@ M_SUI_ATT ~~ M_SUI_CON + M_STR
 	    </h2>
 	    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
 	      <div class="accordion-body">
-		<div class="row"><div class="col-sm-2">all</div><div class="col-sm-6">School_Environment, livemother, Suicidal_Factors, M_LON, E_S_RCRD, disturbed, M_SUI_CON, remarriaged, violent, Stress_Causes, haveparent, Family_Environment, M_SUI_ATT, M_SLP_EN, Violence_Experience, M_STR, livefather</div></div><div class="row"><div class="col-sm-2">endogenous</div><div class="col-sm-6">livemother, Suicidal_Factors, M_LON, E_S_RCRD, disturbed, M_SUI_CON, remarriaged, violent, Stress_Causes, haveparent, M_SUI_ATT, M_SLP_EN, M_STR, livefather</div></div><div class="row"><div class="col-sm-2">exogenous</div><div class="col-sm-6">Violence_Experience, School_Environment, Family_Environment</div></div><div class="row"><div class="col-sm-2">observed</div><div class="col-sm-6">E_S_RCRD, M_LON, M_SLP_EN, M_STR, M_SUI_ATT, M_SUI_CON, disturbed, haveparent, livefather, livemother, remarriaged, violent</div></div><div class="row"><div class="col-sm-2">latent</div><div class="col-sm-6">School_Environment, Stress_Causes, Family_Environment, Suicidal_Factors, Violence_Experience</div></div><div class="row"><div class="col-sm-2">indicator</div><div class="col-sm-6">livemother, haveparent, M_SUI_ATT, M_LON, E_S_RCRD, M_SLP_EN, disturbed, M_SUI_CON, remarriaged, violent, M_STR, livefather</div></div><div class="row"><div class="col-sm-2">output</div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-2">_output</div><div class="col-sm-6">livemother, haveparent, M_SUI_ATT, M_LON, E_S_RCRD, M_SLP_EN, disturbed, M_SUI_CON, remarriaged, violent, M_STR, livefather</div></div><div class="row"><div class="col-sm-2">inner</div><div class="col-sm-6">Family_Environment, School_Environment, Stress_Causes, Suicidal_Factors, Violence_Experience</div></div>
+		<div class="row"><div class="col-sm-2">all</div><div class="col-sm-6">livingspace, M_SUI_PLN, M_SAD, stepparent, E_RES, countparent, M_SUI_CON, disturbed, mood, stress, M_STR, E_SES, E_S_RCRD, family, grade, M_SUI_ATT, M_LON</div></div><div class="row"><div class="col-sm-2">endogenous</div><div class="col-sm-6">disturbed, M_SAD, M_SUI_PLN, stepparent, stress, E_RES, M_STR, E_SES, countparent, E_S_RCRD, M_SUI_ATT, M_LON, M_SUI_CON</div></div><div class="row"><div class="col-sm-2">exogenous</div><div class="col-sm-6">livingspace, grade, mood, family</div></div><div class="row"><div class="col-sm-2">observed</div><div class="col-sm-6">E_RES, E_SES, E_S_RCRD, M_LON, M_SAD, M_STR, M_SUI_ATT, countparent, disturbed, stepparent, M_SUI_CON, M_SUI_PLN</div></div><div class="row"><div class="col-sm-2">latent</div><div class="col-sm-6">livingspace, mood, stress, family, grade</div></div><div class="row"><div class="col-sm-2">indicator</div><div class="col-sm-6">disturbed, M_SAD, stepparent, M_STR, E_RES, E_SES, E_S_RCRD, countparent, M_LON</div></div><div class="row"><div class="col-sm-2">output</div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-2">_output</div><div class="col-sm-6">disturbed, M_SAD, stepparent, M_STR, E_RES, E_SES, E_S_RCRD, countparent, M_SUI_ATT, M_LON</div></div><div class="row"><div class="col-sm-2">inner</div><div class="col-sm-6">family, grade, livingspace, mood, stress, M_SUI_CON, M_SUI_PLN</div></div>
 	      </div>
 	    </div>
 	  </div>
@@ -115,7 +121,7 @@ M_SUI_ATT ~~ M_SUI_CON + M_STR
 	<a class="anchor" id="estimates"></a>
 	<h3>Estimates</h3>
 	<div style="font-family:monospace">
-	<div class="row"><div class='col-sm-2'></div><div class='col-sm-2'></div><div class='col-sm-1'>Estimate</div><div class='col-sm-1'>P-value</div></div><div class='col-sm-2'>Measurement:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>School_Environment =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_S_RCRD</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>Stress_Causes =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_STR</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SLP_EN</div><div class='col-sm-1'>-0.589</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_LON</div><div class='col-sm-1'>-1.079</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>disturbed</div><div class='col-sm-1'>-0.459</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>Suicidal_Factors =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_CON</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_ATT</div><div class='col-sm-1'>0.220</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>Family_Environment =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>haveparent</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livefather</div><div class='col-sm-1'>6.087</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livemother</div><div class='col-sm-1'>6.631</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>remarriaged</div><div class='col-sm-1'>0.118</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>Violence_Experience =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>violent</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class='col-sm-2'>Regressions:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>Stress_Causes ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>School_Environment</div><div class='col-sm-1'>-0.105</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Family_Environment</div><div class='col-sm-1'>-0.662</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Violence_Experience</div><div class='col-sm-1'>-0.701</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>Suicidal_Factors ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Stress_Causes</div><div class='col-sm-1'>-0.217</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Variances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Family_Environment</div><div class='col-sm-1'>0.003</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>School_Environment</div><div class='col-sm-1'>0.391</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Stress_Causes</div><div class='col-sm-1'>0.429</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Suicidal_Factors</div><div class='col-sm-1'>0.079</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Violence_Experience</div><div class='col-sm-1'>0.011</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_ATT</div><div class='col-sm-1'>0.020</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_S_RCRD</div><div class='col-sm-1'>0.872</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_LON</div><div class='col-sm-1'>0.639</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SLP_EN</div><div class='col-sm-1'>0.998</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_STR</div><div class='col-sm-1'>0.440</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_CON</div><div class='col-sm-1'>0.003</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>disturbed</div><div class='col-sm-1'>0.130</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>haveparent</div><div class='col-sm-1'>0.073</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livefather</div><div class='col-sm-1'>0.090</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livemother</div><div class='col-sm-1'>0.040</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>remarriaged</div><div class='col-sm-1'>0.011</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>violent</div><div class='col-sm-1'>0.015</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2'>Covariances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'>School_Environment ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Family_Environment</div><div class='col-sm-1'>-0.003</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>Violence_Experience ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>Family_Environment</div><div class='col-sm-1'>-0.001</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>School_Environment</div><div class='col-sm-1'>-0.002</div><div class='col-sm-1'>0.055</div></div><div class="row"><div class='col-sm-2 text-end'>M_SUI_ATT ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_CON</div><div class='col-sm-1'>-0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_STR</div><div class='col-sm-1'>0.003</div><div class='col-sm-1'>0.000</div></div>
+	<div class="row"><div class='col-sm-2'></div><div class='col-sm-2'></div><div class='col-sm-1'>Estimate</div><div class='col-sm-1'>P-value</div></div><div class='col-sm-2'>Measurement:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>stress =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_STR</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>mood =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SAD</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_LON</div><div class='col-sm-1'>0.704</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>disturbed</div><div class='col-sm-1'>1.151</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>family =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_SES</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>stepparent</div><div class='col-sm-1'>-0.059</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>countparent</div><div class='col-sm-1'>0.288</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>grade =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_S_RCRD</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>livingspace =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_RES</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class='col-sm-2'>Regressions:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>stress ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>grade</div><div class='col-sm-1'>0.014</div><div class='col-sm-1'>0.071</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>family</div><div class='col-sm-1'>-0.004</div><div class='col-sm-1'>0.758</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livingspace</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.306</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mood</div><div class='col-sm-1'>0.589</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>M_SUI_PLN ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_CON</div><div class='col-sm-1'>0.312</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>M_SUI_CON ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>stress</div><div class='col-sm-1'>1.034</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>M_SUI_ATT ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_PLN</div><div class='col-sm-1'>0.350</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Variances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_CON</div><div class='col-sm-1'>0.077</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_PLN</div><div class='col-sm-1'>0.030</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>family</div><div class='col-sm-1'>0.025</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>grade</div><div class='col-sm-1'>0.050</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>livingspace</div><div class='col-sm-1'>0.221</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mood</div><div class='col-sm-1'>0.070</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>stress</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_RES</div><div class='col-sm-1'>0.367</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_SES</div><div class='col-sm-1'>0.020</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>E_S_RCRD</div><div class='col-sm-1'>0.028</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_LON</div><div class='col-sm-1'>0.037</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SAD</div><div class='col-sm-1'>0.130</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_STR</div><div class='col-sm-1'>0.030</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>M_SUI_ATT</div><div class='col-sm-1'>0.018</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>countparent</div><div class='col-sm-1'>0.070</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>disturbed</div><div class='col-sm-1'>0.133</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>stepparent</div><div class='col-sm-1'>0.030</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2'>Covariances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'>grade ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>family</div><div class='col-sm-1'>0.016</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mood</div><div class='col-sm-1'>-0.006</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>livingspace ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>family</div><div class='col-sm-1'>-0.008</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>grade</div><div class='col-sm-1'>0.008</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mood</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.012</div></div><div class="row"><div class='col-sm-2 text-end'>mood ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>family</div><div class='col-sm-1'>-0.007</div><div class='col-sm-1'>0.000</div></div>
 	</div>
 	<br>
 	<div class="accordion" id="accordion3">
@@ -127,85 +133,46 @@ M_SUI_ATT ~~ M_SUI_CON + M_STR
 	    </h2>	
 	    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion3">
 	      <div class="accordion-body" style="background-color: #f6f8fa;max-width: 100%;width: 100%">
-		<pre style="font-family: monospace">                   lval  op                 rval  Estimate  Std. Err  \
-0         Stress_Causes   ~   School_Environment -0.104770  0.013477   
-1         Stress_Causes   ~   Family_Environment -0.661886  0.098206   
-2         Stress_Causes   ~  Violence_Experience -0.700775  0.030771   
-3      Suicidal_Factors   ~        Stress_Causes -0.217484  0.003734   
-4              E_S_RCRD   ~   School_Environment  1.000000         -   
-5                 M_STR   ~        Stress_Causes  1.000000         -   
-6              M_SLP_EN   ~        Stress_Causes -0.588571  0.012221   
-7                 M_LON   ~        Stress_Causes -1.079053  0.013924   
-8             disturbed   ~        Stress_Causes -0.459069  0.006014   
-9             M_SUI_CON   ~     Suicidal_Factors  1.000000         -   
-10            M_SUI_ATT   ~     Suicidal_Factors  0.220143  0.008076   
-11           haveparent   ~   Family_Environment  1.000000         -   
-12           livefather   ~   Family_Environment  6.086794  0.240718   
-13           livemother   ~   Family_Environment  6.631023  0.296806   
-14          remarriaged   ~   Family_Environment  0.117648  0.015405   
-15              violent   ~  Violence_Experience  1.000000         -   
-16   Family_Environment  ~~   Family_Environment  0.002513  0.000195   
-17   School_Environment  ~~   School_Environment  0.390851  0.016103   
-18   School_Environment  ~~   Family_Environment -0.002899  0.000413   
-19        Stress_Causes  ~~        Stress_Causes  0.429144  0.008157   
-20     Suicidal_Factors  ~~     Suicidal_Factors  0.078539  0.000409   
-21  Violence_Experience  ~~  Violence_Experience  0.010593  0.001198   
-22  Violence_Experience  ~~   Family_Environment -0.000765  0.000064   
-23  Violence_Experience  ~~   School_Environment -0.002156  0.001122   
-24            M_SUI_ATT  ~~            M_SUI_CON -0.004345  0.000729   
-25            M_SUI_ATT  ~~                M_STR  0.002846  0.000767   
-26            M_SUI_ATT  ~~            M_SUI_ATT  0.019585  0.000367   
-27             E_S_RCRD  ~~             E_S_RCRD  0.872231  0.016145   
-28                M_LON  ~~                M_LON  0.639003  0.007966   
-29             M_SLP_EN  ~~             M_SLP_EN  0.997529  0.009313   
-30                M_STR  ~~                M_STR  0.440357  0.006101   
-31            M_SUI_CON  ~~            M_SUI_CON  0.003166  0.000403   
-32            disturbed  ~~            disturbed  0.130299   0.00155   
-33           haveparent  ~~           haveparent  0.072895  0.000652   
-34           livefather  ~~           livefather  0.090330  0.003113   
-35           livemother  ~~           livemother  0.040297  0.003587   
-36          remarriaged  ~~          remarriaged  0.011067  0.000098   
-37              violent  ~~              violent  0.014904    0.0012   
-
-       z-value   p-value  
-0    -7.773779       0.0  
-1    -6.739769       0.0  
-2   -22.774109       0.0  
-3   -58.251525       0.0  
-4            -         -  
-5            -         -  
-6    -48.16045       0.0  
-7   -77.494611       0.0  
-8   -76.331469       0.0  
-9            -         -  
-10   27.257806       0.0  
-11           -         -  
-12   25.286037       0.0  
-13   22.341285       0.0  
-14    7.637014       0.0  
-15           -         -  
-16   12.869865       0.0  
-17   24.271914       0.0  
-18   -7.012917       0.0  
-19   52.608445       0.0  
-20  191.893459       0.0  
-21    8.846008       0.0  
-22  -11.886904       0.0  
-23   -1.920946  0.054738  
-24    -5.96176       0.0  
-25    3.708834  0.000208  
-26   53.332018       0.0  
-27   54.024992       0.0  
-28   80.215892       0.0  
-29  107.108751       0.0  
-30    72.17237       0.0  
-31    7.858522       0.0  
-32   84.074401       0.0  
-33  111.857599       0.0  
-34   29.020824       0.0  
-35   11.233031       0.0  
-36  112.963079       0.0  
-37   12.419368       0.0  </pre>
+		<pre style="font-family: monospace">           lval  op         rval      Estimate  Std. Err     z-value   p-value
+0        stress   ~        grade  1.400806e-02  0.007751    1.807223  0.070728
+1        stress   ~       family -3.856696e-03  0.012539   -0.307566  0.758413
+2        stress   ~  livingspace  4.389647e-03  0.004286    1.024142  0.305768
+3        stress   ~         mood  5.889374e-01  0.008803   66.899086       0.0
+4     M_SUI_PLN   ~    M_SUI_CON  3.123348e-01  0.003625   86.159798       0.0
+5     M_SUI_CON   ~       stress  1.034317e+00  0.017208   60.108192       0.0
+6         M_STR   ~       stress  1.000000e+00         -           -         -
+7         M_SAD   ~         mood  1.000000e+00         -           -         -
+8         M_LON   ~         mood  7.040870e-01  0.009961   70.685578       0.0
+9     disturbed   ~         mood  1.151300e+00  0.017005   67.702807       0.0
+10        E_SES   ~       family  1.000000e+00         -           -         -
+11   stepparent   ~       family -5.912945e-02  0.010629   -5.563034       0.0
+12  countparent   ~       family  2.882922e-01  0.027385   10.527435       0.0
+13     E_S_RCRD   ~        grade  1.000000e+00         -           -         -
+14        E_RES   ~  livingspace  1.000000e+00         -           -         -
+15    M_SUI_ATT   ~    M_SUI_PLN  3.496168e-01  0.004409   79.302173       0.0
+16    M_SUI_CON  ~~    M_SUI_CON  7.745111e-02  0.000839   92.300549       0.0
+17    M_SUI_PLN  ~~    M_SUI_PLN  3.040292e-02  0.000287  105.860757       0.0
+18       family  ~~       family  2.518718e-02  0.002355   10.694668       0.0
+19        grade  ~~        grade  5.028403e-02  0.002619   19.198278       0.0
+20        grade  ~~       family  1.646455e-02  0.000413   39.898953       0.0
+21        grade  ~~         mood -5.611994e-03  0.000598   -9.386043       0.0
+22  livingspace  ~~  livingspace  2.212509e-01  0.002781   79.548115       0.0
+23  livingspace  ~~       family -7.750356e-03  0.001089   -7.115817       0.0
+24  livingspace  ~~        grade  7.961763e-03  0.001431    5.563799       0.0
+25  livingspace  ~~         mood  4.128405e-03  0.001634    2.526187  0.011531
+26         mood  ~~         mood  6.953631e-02  0.001647   42.223557       0.0
+27         mood  ~~       family -6.730793e-03  0.000459  -14.657842       0.0
+28       stress  ~~       stress  9.749680e-16  0.000407         0.0       1.0
+29        E_RES  ~~        E_RES  3.672301e-01  0.002782  132.024426       0.0
+30        E_SES  ~~        E_SES  2.040648e-02  0.002331    8.752916       0.0
+31     E_S_RCRD  ~~     E_S_RCRD  2.759903e-02  0.002615   10.555455       0.0
+32        M_LON  ~~        M_LON  3.669283e-02  0.000497     73.8878       0.0
+33        M_SAD  ~~        M_SAD  1.300517e-01  0.001475   88.163248       0.0
+34        M_STR  ~~        M_STR  3.001651e-02  0.000477   62.873976       0.0
+35    M_SUI_ATT  ~~    M_SUI_ATT  1.763103e-02  0.000167  105.860757       0.0
+36  countparent  ~~  countparent  7.010069e-02  0.000691  101.459871       0.0
+37    disturbed  ~~    disturbed  1.330855e-01   0.00161    82.65994       0.0
+38   stepparent  ~~   stepparent  3.042121e-02  0.000288  105.628797       0.0</pre>
 	      </div>
 	    </div>
 	  </div>
@@ -224,16 +191,16 @@ M_SUI_ATT ~~ M_SUI_CON + M_STR
 Optimization method: SLSQP
 Optimization successful.
 Optimization terminated successfully
-Objective value: 0.077
-Number of iterations: 77
-Params: -0.589 -1.079 -0.459 0.220 6.087 6.631 0.118 -0.105 -0.662 -0.701 -0.217 -0.004 0.003 0.020 0.872 0.003 0.639 0.998 0.440 0.003 0.391 -0.003 0.429 0.079 0.011 -0.001 -0.002 0.130 0.073 0.090 0.040 0.011 0.015</pre>
+Objective value: 0.074
+Number of iterations: 52
+Params: 0.704 1.151 -0.059 0.288 0.014 -0.004 0.004 0.589 0.312 0.350 1.034 0.367 0.020 0.028 0.037 0.130 0.030 0.018 0.077 0.030 0.070 0.133 0.025 0.050 0.016 -0.006 0.221 -0.008 0.008 0.004 0.070 -0.007 0.030 0.000</pre>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	<a class="anchor" id="indices"></a>
 	<h3>Fit indices</h3>
-	<table class="table"><thead><tr><th scope='col'>DoF</th><th scope='col'>DoF Baseline</th><th scope='col'>chi2</th><th scope='col'>chi2 p-value</th><th scope='col'>chi2 Baseline</th></tr></thead><tbody><tr><td>45.000</td><td>66.000</td><td>1965.979</td><td>0.000</td><td>39326.569</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>CFI</th><th scope='col'>GFI</th><th scope='col'>AGFI</th><th scope='col'>NFI</th><th scope='col'>TLI</th></tr></thead><tbody><tr><td>0.951</td><td>0.950</td><td>0.927</td><td>0.950</td><td>0.928</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>RMSEA</th><th scope='col'>AIC</th><th scope='col'>BIC</th><th scope='col'>LogLik</th></tr></thead><tbody><tr><td>0.041</td><td>65.846</td><td>334.761</td><td>0.077</td></tr></tbody></table>
+	<table class="table"><thead><tr><th scope='col'>DoF</th><th scope='col'>DoF Baseline</th><th scope='col'>chi2</th><th scope='col'>chi2 p-value</th><th scope='col'>chi2 Baseline</th></tr></thead><tbody><tr><td>44.000</td><td>66.000</td><td>1655.364</td><td>0.000</td><td>39379.952</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>CFI</th><th scope='col'>GFI</th><th scope='col'>AGFI</th><th scope='col'>NFI</th><th scope='col'>TLI</th></tr></thead><tbody><tr><td>0.959</td><td>0.958</td><td>0.937</td><td>0.958</td><td>0.939</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>RMSEA</th><th scope='col'>AIC</th><th scope='col'>BIC</th><th scope='col'>LogLik</th></tr></thead><tbody><tr><td>0.040</td><td>67.852</td><td>340.444</td><td>0.074</td></tr></tbody></table>
 	<a class="anchor" id="matrices"></a>
 	<h3>Matrices</h3>
  	<center><h4>Covariance matrix</h4></center>
@@ -247,400 +214,400 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
   <thead>
     <tr style="text-align: center;">
       <th></th>
+      <th>E_RES</th>
+      <th>E_SES</th>
       <th>E_S_RCRD</th>
       <th>M_LON</th>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <th>M_STR</th>
       <th>M_SUI_ATT</th>
-      <th>M_SUI_CON</th>
+      <th>countparent</th>
       <th>disturbed</th>
-      <th>haveparent</th>
-      <th>livefather</th>
-      <th>livemother</th>
-      <th>remarriaged</th>
-      <th>violent</th>
+      <th>stepparent</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>E_S_RCRD</th>
-      <td>1.26</td>
-      <td>0.06</td>
-      <td>-0.04</td>
-      <td>-0.03</td>
+      <th>E_RES</th>
+      <td>0.59</td>
+      <td>-0.01</td>
       <td>0.01</td>
-      <td>0.02</td>
-      <td>0.02</td>
       <td>0.01</td>
-      <td>-0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>-0.02</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>-0.01</td>
+      <td>0.05</td>
+      <td>0.02</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>E_S_RCRD</th>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.08</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
     </tr>
     <tr>
       <th>M_LON</th>
-      <td>0.06</td>
-      <td>1.15</td>
-      <td>0.25</td>
-      <td>-0.47</td>
-      <td>0.02</td>
-      <td>0.11</td>
-      <td>0.22</td>
-      <td>-0.01</td>
-      <td>0.00</td>
       <td>0.01</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>0.05</td>
+      <td>0.03</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.06</td>
       <td>0.00</td>
+      <td>0.03</td>
       <td>0.01</td>
     </tr>
     <tr>
-      <th>M_SLP_EN</th>
-      <td>-0.04</td>
-      <td>0.25</td>
-      <td>1.15</td>
-      <td>-0.31</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.11</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.02</td>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>-0.00</td>
+      <td>-0.01</td>
+      <td>0.05</td>
+      <td>0.20</td>
+      <td>0.04</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.02</td>
     </tr>
     <tr>
       <th>M_STR</th>
-      <td>-0.03</td>
-      <td>-0.47</td>
-      <td>-0.31</td>
-      <td>0.88</td>
-      <td>-0.02</td>
-      <td>-0.09</td>
-      <td>-0.20</td>
-      <td>0.00</td>
       <td>0.00</td>
       <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>M_SUI_ATT</th>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
+      <td>-0.02</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>-0.00</td>
+      <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
     </tr>
     <tr>
-      <th>M_SUI_ATT</th>
-      <td>0.01</td>
-      <td>0.02</td>
-      <td>0.01</td>
-      <td>-0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
+      <th>disturbed</th>
+      <td>0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>0.06</td>
+      <td>0.07</td>
+      <td>0.05</td>
       <td>0.01</td>
       <td>-0.00</td>
+      <td>0.23</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.03</td>
+      <td>0.05</td>
       <td>0.02</td>
-      <td>0.11</td>
-      <td>0.04</td>
-      <td>-0.09</td>
       <td>0.02</td>
+      <td>-0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
       <td>0.10</td>
-      <td>0.04</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
+      <td>0.03</td>
     </tr>
     <tr>
-      <th>disturbed</th>
-      <td>0.02</td>
-      <td>0.22</td>
-      <td>0.11</td>
-      <td>-0.20</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.22</td>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>0.01</td>
-      <td>-0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.08</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>-0.02</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.02</td>
-      <td>0.18</td>
-      <td>0.10</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>-0.02</td>
-      <td>0.01</td>
-      <td>0.02</td>
-      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>0.01</td>
       <td>0.02</td>
-      <td>0.10</td>
-      <td>0.15</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>0.01</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
-      <td>-0.00</td>
       <td>0.01</td>
       <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
+      <td>0.02</td>
       <td>0.00</td>
       <td>0.03</td>
+      <td>0.04</td>
     </tr>
   </tbody>
 </table></div><div class="tab-pane fade " id="modelimplied" role="tabpanel" aria-labelledby="modelimplied-tab"><table border="1" class="dataframe table table-bordered">
   <thead>
     <tr style="text-align: center;">
       <th></th>
+      <th>E_RES</th>
+      <th>E_SES</th>
       <th>E_S_RCRD</th>
       <th>M_LON</th>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <th>M_STR</th>
       <th>M_SUI_ATT</th>
-      <th>M_SUI_CON</th>
+      <th>countparent</th>
       <th>disturbed</th>
-      <th>haveparent</th>
-      <th>livefather</th>
-      <th>livemother</th>
-      <th>remarriaged</th>
-      <th>violent</th>
+      <th>stepparent</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>E_S_RCRD</th>
-      <td>1.26</td>
-      <td>0.04</td>
-      <td>0.02</td>
-      <td>-0.04</td>
-      <td>0.00</td>
+      <th>E_RES</th>
+      <td>0.59</td>
+      <td>-0.01</td>
       <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>-0.01</td>
+      <td>0.05</td>
       <td>0.02</td>
       <td>-0.00</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>E_S_RCRD</th>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.08</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
     </tr>
     <tr>
       <th>M_LON</th>
-      <td>0.04</td>
-      <td>1.15</td>
-      <td>0.28</td>
-      <td>-0.47</td>
-      <td>0.02</td>
-      <td>0.10</td>
-      <td>0.22</td>
       <td>0.00</td>
-      <td>0.01</td>
-      <td>0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>0.05</td>
+      <td>0.03</td>
       <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.06</td>
+      <td>0.00</td>
+      <td>0.03</td>
       <td>0.01</td>
     </tr>
     <tr>
-      <th>M_SLP_EN</th>
-      <td>0.02</td>
-      <td>0.28</td>
-      <td>1.15</td>
-      <td>-0.26</td>
+      <th>M_SAD</th>
+      <td>0.00</td>
+      <td>-0.01</td>
+      <td>-0.01</td>
+      <td>0.05</td>
+      <td>0.20</td>
+      <td>0.04</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.08</td>
+      <td>0.00</td>
+      <td>0.04</td>
       <td>0.01</td>
-      <td>0.06</td>
-      <td>0.12</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
     </tr>
     <tr>
       <th>M_STR</th>
-      <td>-0.04</td>
-      <td>-0.47</td>
-      <td>-0.26</td>
-      <td>0.88</td>
-      <td>-0.02</td>
-      <td>-0.10</td>
-      <td>-0.20</td>
+      <td>0.00</td>
       <td>-0.00</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
       <td>-0.00</td>
-      <td>-0.01</td>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.01</td>
     </tr>
     <tr>
       <th>M_SUI_ATT</th>
       <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.02</td>
+      <td>-0.00</td>
       <td>0.01</td>
-      <td>-0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
+      <td>-0.00</td>
       <td>0.01</td>
       <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>disturbed</th>
+      <td>0.00</td>
+      <td>-0.01</td>
+      <td>-0.01</td>
+      <td>0.06</td>
+      <td>0.08</td>
+      <td>0.05</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.23</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>M_SUI_CON</th>
-      <td>0.01</td>
-      <td>0.10</td>
-      <td>0.06</td>
-      <td>-0.10</td>
-      <td>0.02</td>
-      <td>0.10</td>
-      <td>0.04</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>disturbed</th>
-      <td>0.02</td>
-      <td>0.22</td>
-      <td>0.12</td>
-      <td>-0.20</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.22</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>-0.00</td>
-      <td>0.00</td>
       <td>0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.08</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>-0.02</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>-0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.02</td>
-      <td>0.18</td>
-      <td>0.10</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>-0.02</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>-0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.02</td>
-      <td>0.10</td>
-      <td>0.15</td>
-      <td>0.00</td>
-      <td>-0.01</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
-      <td>-0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>-0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.01</td>
       <td>-0.00</td>
       <td>0.03</td>
+      <td>0.04</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.04</td>
     </tr>
   </tbody>
 </table></div></div><br><center><h4>Model matrices</h4></center><ul class="nav nav-tabs" id="modelmatrices" role="tablist"><li class="nav-item" role="presentation">
@@ -668,24 +635,20 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
+      <th>family</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>School_Environment</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -693,27 +656,63 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Stress_Causes</th>
-      <td>-0.66</td>
-      <td>-0.10</td>
+      <th>grade</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.70</td>
-    </tr>
-    <tr>
-      <th>Suicidal_Factors</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.22</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Violence_Experience</th>
+      <th>livingspace</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>mood</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stress</th>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.59</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.31</td>
       <td>0.00</td>
     </tr>
   </tbody>
@@ -721,24 +720,20 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
+      <th>family</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>School_Environment</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -746,15 +741,9 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Stress_Causes</th>
+      <th>grade</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>Suicidal_Factors</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -762,7 +751,49 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Violence_Experience</th>
+      <th>livingspace</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>mood</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -774,24 +805,20 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
+      <th>family</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>School_Environment</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -799,15 +826,49 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Stress_Causes</th>
-      <td>_b14</td>
+      <th>grade</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>livingspace</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>mood</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stress</th>
+      <td>_b11</td>
+      <td>_b10</td>
+      <td>_b12</td>
       <td>_b13</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b15</td>
+      <td>0.00</td>
     </tr>
     <tr>
-      <th>Suicidal_Factors</th>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>_b16</td>
@@ -815,11 +876,13 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Violence_Experience</th>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>_b14</td>
       <td>0.00</td>
     </tr>
   </tbody>
@@ -836,18 +899,42 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>E_RES</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>E_S_RCRD</th>
       <td>0.00</td>
       <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -856,20 +943,26 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th>M_LON</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-1.08</td>
+      <td>0.00</td>
+      <td>0.70</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.59</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>M_STR</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>1.00</td>
@@ -881,7 +974,39 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.22</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
+      <td>0.29</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>disturbed</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.15</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>-0.06</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -889,51 +1014,15 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>1.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>disturbed</th>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.46</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>1.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>6.09</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>6.63</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>0.12</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -945,18 +1034,42 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>E_RES</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>E_S_RCRD</th>
       <td>0.00</td>
       <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -965,20 +1078,26 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th>M_LON</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.53</td>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.35</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>M_STR</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>1.00</td>
@@ -990,7 +1109,39 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.17</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
+      <td>0.16</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>disturbed</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.37</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>-0.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -998,51 +1149,15 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>1.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>disturbed</th>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.23</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>1.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>0.20</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>0.22</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>-0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1054,18 +1169,42 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>E_RES</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b9</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>_b5</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>E_S_RCRD</th>
       <td>0.00</td>
-      <td>_b1</td>
+      <td>_b8</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1074,15 +1213,19 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th>M_LON</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b4</td>
+      <td>0.00</td>
+      <td>_b3</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b3</td>
+      <td>0.00</td>
+      <td>_b2</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -1090,7 +1233,9 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th>M_STR</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b2</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b1</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -1099,7 +1244,39 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b15</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
       <td>_b7</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>disturbed</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b4</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>_b6</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -1107,56 +1284,20 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b6</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>disturbed</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_b5</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>_b8</td>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>_b9</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>_b10</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>_b11</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_b12</td>
+      <td>1.00</td>
     </tr>
   </tbody>
 </table></div></div></div><div class="tab-pane fade " id="mxPsi" role="tabpanel" aria-labelledby="mxPsi-tab"><ul class="nav nav-tabs" id="Psisub" role="tablist"><li class="nav-item" role="presentation">
@@ -1172,40 +1313,70 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
+      <th>family</th>
+      <td>0.03</td>
+      <td>0.02</td>
+      <td>-0.01</td>
+      <td>-0.01</td>
       <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>School_Environment</th>
-      <td>-0.00</td>
-      <td>0.39</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-    </tr>
-    <tr>
-      <th>Stress_Causes</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.43</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Suicidal_Factors</th>
+      <th>grade</th>
+      <td>0.02</td>
+      <td>0.05</td>
+      <td>0.01</td>
+      <td>-0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>livingspace</th>
+      <td>-0.01</td>
+      <td>0.01</td>
+      <td>0.22</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>mood</th>
+      <td>-0.01</td>
+      <td>-0.01</td>
+      <td>0.00</td>
+      <td>0.07</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1213,28 +1384,54 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Violence_Experience</th>
-      <td>-0.00</td>
-      <td>-0.00</td>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
     </tr>
   </tbody>
 </table></div><div class="tab-pane fade " id="PsiStart" role="tabpanel" aria-labelledby="PsiStart-tab"><table border="1" class="dataframe table table-bordered">
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
+      <th>family</th>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>grade</th>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>livingspace</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.05</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1242,7 +1439,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>School_Environment</th>
+      <th>mood</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.05</td>
       <td>0.00</td>
@@ -1250,7 +1449,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Stress_Causes</th>
+      <th>stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.05</td>
@@ -1258,7 +1459,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Suicidal_Factors</th>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1266,65 +1469,99 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>Violence_Experience</th>
+      <th>M_SUI_PLN</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
     </tr>
   </tbody>
 </table></div><div class="tab-pane fade " id="PsiNames" role="tabpanel" aria-labelledby="PsiNames-tab"><table border="1" class="dataframe table table-bordered">
   <thead>
     <tr style="text-align: center;">
       <th></th>
-      <th>Family_Environment</th>
-      <th>School_Environment</th>
-      <th>Stress_Causes</th>
-      <th>Suicidal_Factors</th>
-      <th>Violence_Experience</th>
+      <th>family</th>
+      <th>grade</th>
+      <th>livingspace</th>
+      <th>mood</th>
+      <th>stress</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Family_Environment</th>
-      <td>_c5</td>
-      <td>_c11</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c15</td>
-    </tr>
-    <tr>
-      <th>School_Environment</th>
-      <td>_c11</td>
-      <td>_c10</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c16</td>
-    </tr>
-    <tr>
-      <th>Stress_Causes</th>
-      <td>0.00</td>
-      <td>0.00</td>
+      <th>family</th>
       <td>_c12</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>Suicidal_Factors</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c13</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>Violence_Experience</th>
-      <td>_c15</td>
-      <td>_c16</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>_c14</td>
+      <td>_c17</td>
+      <td>_c21</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>grade</th>
+      <td>_c14</td>
+      <td>_c13</td>
+      <td>_c18</td>
+      <td>_c15</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>livingspace</th>
+      <td>_c17</td>
+      <td>_c18</td>
+      <td>_c16</td>
+      <td>_c19</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>mood</th>
+      <td>_c21</td>
+      <td>_c15</td>
+      <td>_c19</td>
+      <td>_c20</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c23</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c8</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c9</td>
     </tr>
   </tbody>
 </table></div></div></div><div class="tab-pane fade " id="mxTheta" role="tabpanel" aria-labelledby="mxTheta-tab"><ul class="nav nav-tabs" id="Thetasub" role="tablist"><li class="nav-item" role="presentation">
@@ -1340,26 +1577,56 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
   <thead>
     <tr style="text-align: center;">
       <th></th>
+      <th>E_RES</th>
+      <th>E_SES</th>
       <th>E_S_RCRD</th>
       <th>M_LON</th>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <th>M_STR</th>
       <th>M_SUI_ATT</th>
-      <th>M_SUI_CON</th>
+      <th>countparent</th>
       <th>disturbed</th>
-      <th>haveparent</th>
-      <th>livefather</th>
-      <th>livemother</th>
-      <th>remarriaged</th>
-      <th>violent</th>
+      <th>stepparent</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>E_RES</th>
+      <td>0.37</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>E_S_RCRD</th>
-      <td>0.87</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.03</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1373,24 +1640,9 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
     <tr>
       <th>M_LON</th>
       <td>0.00</td>
-      <td>0.64</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SLP_EN</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>1.00</td>
-      <td>0.00</td>
+      <td>0.04</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1401,54 +1653,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
     </tr>
     <tr>
-      <th>M_STR</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.44</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SUI_ATT</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.02</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SUI_CON</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>disturbed</th>
-      <td>0.00</td>
-      <td>0.00</td>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1459,9 +1664,41 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
     </tr>
     <tr>
-      <th>haveparent</th>
+      <th>M_STR</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_ATT</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1476,7 +1713,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
     </tr>
     <tr>
-      <th>livefather</th>
+      <th>disturbed</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1485,15 +1722,183 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.09</td>
+      <td>0.13</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>livemother</th>
+      <th>stepparent</th>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="ThetaStart" role="tabpanel" aria-labelledby="ThetaStart-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>E_RES</th>
+      <th>E_SES</th>
+      <th>E_S_RCRD</th>
+      <th>M_LON</th>
+      <th>M_SAD</th>
+      <th>M_STR</th>
+      <th>M_SUI_ATT</th>
+      <th>countparent</th>
+      <th>disturbed</th>
+      <th>stepparent</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>E_RES</th>
+      <td>0.29</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_S_RCRD</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.04</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_LON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.04</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SAD</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_STR</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_ATT</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>countparent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1504,149 +1909,13 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.04</td>
       <td>0.00</td>
       <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-    </tr>
-  </tbody>
-</table></div><div class="tab-pane fade " id="ThetaStart" role="tabpanel" aria-labelledby="ThetaStart-tab"><table border="1" class="dataframe table table-bordered">
-  <thead>
-    <tr style="text-align: center;">
-      <th></th>
-      <th>E_S_RCRD</th>
-      <th>M_LON</th>
-      <th>M_SLP_EN</th>
-      <th>M_STR</th>
-      <th>M_SUI_ATT</th>
-      <th>M_SUI_CON</th>
-      <th>disturbed</th>
-      <th>haveparent</th>
-      <th>livefather</th>
-      <th>livemother</th>
-      <th>remarriaged</th>
-      <th>violent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>E_S_RCRD</th>
-      <td>0.63</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_LON</th>
-      <td>0.00</td>
-      <td>0.57</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SLP_EN</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.57</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_STR</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.44</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SUI_ATT</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SUI_CON</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.05</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>disturbed</th>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1657,71 +1926,25 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+    </tr>
+    <tr>
+      <th>stepparent</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>haveparent</th>
+      <th>M_SUI_CON</th>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.04</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livefather</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.09</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.08</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1733,30 +1956,92 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
     </tr>
   </tbody>
 </table></div><div class="tab-pane fade " id="ThetaNames" role="tabpanel" aria-labelledby="ThetaNames-tab"><table border="1" class="dataframe table table-bordered">
   <thead>
     <tr style="text-align: center;">
       <th></th>
+      <th>E_RES</th>
+      <th>E_SES</th>
       <th>E_S_RCRD</th>
       <th>M_LON</th>
-      <th>M_SLP_EN</th>
+      <th>M_SAD</th>
       <th>M_STR</th>
       <th>M_SUI_ATT</th>
-      <th>M_SUI_CON</th>
+      <th>countparent</th>
       <th>disturbed</th>
-      <th>haveparent</th>
-      <th>livefather</th>
-      <th>livemother</th>
-      <th>remarriaged</th>
-      <th>violent</th>
+      <th>stepparent</th>
+      <th>M_SUI_CON</th>
+      <th>M_SUI_PLN</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>E_RES</th>
+      <td>_c1</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>E_SES</th>
+      <td>0.00</td>
+      <td>_c2</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>E_S_RCRD</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c3</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_LON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>_c4</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1766,32 +2051,14 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
     </tr>
     <tr>
-      <th>M_LON</th>
-      <td>0.00</td>
-      <td>_c6</td>
+      <th>M_SAD</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>M_SLP_EN</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c7</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>_c5</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1805,9 +2072,9 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c8</td>
-      <td>_c2</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>_c6</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1820,10 +2087,10 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c2</td>
-      <td>_c3</td>
-      <td>_c1</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c7</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1831,15 +2098,15 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
     </tr>
     <tr>
-      <th>M_SUI_CON</th>
+      <th>countparent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c1</td>
-      <td>_c9</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>_c10</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1853,77 +2120,15 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c17</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>haveparent</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c18</td>
-      <td>0.00</td>
+      <td>_c11</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>livefather</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c19</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>livemother</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c20</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>remarriaged</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c21</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>violent</th>
-      <td>0.00</td>
-      <td>0.00</td>
+      <th>stepparent</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1934,6 +2139,38 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>_c22</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_CON</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>M_SUI_PLN</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
     </tr>
   </tbody>
 </table></div></div></div></div>
