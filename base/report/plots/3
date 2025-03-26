@@ -2,9 +2,9 @@ digraph G {
 	overlap=scale splines=true
 	edge [fontsize=12]
 	node [fillcolor="#cae6df" shape=circle style=filled]
-	Suicide [label=Suicide]
 	Stress [label=Stress]
 	Emotion [label=Emotion]
+	Suicide [label=Suicide]
 	node [shape=box style=""]
 	M_LON [label=M_LON]
 	M_SAD [label=M_SAD]
