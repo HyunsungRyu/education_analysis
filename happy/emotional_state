@@ -1,0 +1,15 @@
+digraph G {
+	overlap=scale splines=true
+	edge [fontsize=12]
+	node [fillcolor="#cae6df" shape=circle style=filled]
+	emotional_state [label=emotional_state]
+	node [shape=box style=""]
+	q221 [label=q221]
+	q223 [label=q223]
+	q226 [label=q226]
+	q23 [label=q23]
+	emotional_state -> q221 [label=1.000]
+	emotional_state -> q223 [label="1.543\np-val: 0.00"]
+	emotional_state -> q226 [label="0.958\np-val: 0.00"]
+	emotional_state -> q23 [label="1.094\np-val: 0.00"]
+}
