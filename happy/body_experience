@@ -1,0 +1,21 @@
+digraph G {
+	overlap=scale splines=true
+	edge [fontsize=12]
+	node [fillcolor="#cae6df" shape=circle style=filled]
+	body_info [label=body_info]
+	body_stress [label=body_stress]
+	body_experience [label=body_experience]
+	node [shape=box style=""]
+	obesity [label=obesity]
+	q4812 [label=q4812]
+	q4813 [label=q4813]
+	q4814 [label=q4814]
+	q4815 [label=q4815]
+	body_experience -> body_stress [label=1.000]
+	body_experience -> body_info [label="0.154\np-val: 0.00"]
+	body_stress -> q4812 [label=1.000]
+	body_stress -> q4813 [label="0.724\np-val: 0.00"]
+	body_stress -> q4814 [label="1.149\np-val: 0.00"]
+	body_stress -> q4815 [label="0.945\np-val: 0.00"]
+	body_info -> obesity [label=1.000]
+}
