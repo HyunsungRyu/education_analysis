@@ -2,8 +2,8 @@ digraph G {
 	overlap=scale splines=true
 	edge [fontsize=12]
 	node [fillcolor="#cae6df" shape=circle style=filled]
-	exam_anxiety [label=exam_anxiety]
 	academic_pressure [label=academic_pressure]
+	exam_anxiety [label=exam_anxiety]
 	academic_stress [label=academic_stress]
 	node [shape=box style=""]
 	q072 [label=q072]

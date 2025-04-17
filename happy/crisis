@@ -1,0 +1,23 @@
+digraph G {
+	overlap=scale splines=true
+	edge [fontsize=12]
+	node [fillcolor="#cae6df" shape=circle style=filled]
+	crisis_behavior [label=crisis_behavior]
+	substance [label=substance]
+	impulse [label=impulse]
+	node [shape=box style=""]
+	q2810 [label=q2810]
+	q287 [label=q287]
+	q288 [label=q288]
+	q289 [label=q289]
+	q29 [label=q29]
+	q31 [label=q31]
+	crisis_behavior -> substance [label=1.000]
+	crisis_behavior -> impulse [label="4.635\np-val: 0.00"]
+	substance -> q287 [label=1.000]
+	substance -> q288 [label="1.783\np-val: 0.00"]
+	substance -> q289 [label="0.511\np-val: 0.00"]
+	impulse -> q29 [label=1.000]
+	impulse -> q31 [label="0.716\np-val: 0.00"]
+	crisis_behavior -> q2810 [label="1.618\np-val: 0.00"]
+}

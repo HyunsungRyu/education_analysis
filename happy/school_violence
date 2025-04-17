@@ -9,7 +9,7 @@ digraph G {
 	q351 [label=q351]
 	q352 [label=q352]
 	exposure_violence -> q33 [label=1.000]
-	exposure_violence -> q35 [label="4.930\np-val: 0.00"]
-	exposure_violence -> q351 [label="3.760\np-val: 0.00"]
-	exposure_violence -> q352 [label="4.079\np-val: 0.00"]
+	exposure_violence -> q35 [label="1.225\np-val: 0.00"]
+	exposure_violence -> q351 [label="1.868\np-val: 0.00"]
+	exposure_violence -> q352 [label="2.027\np-val: 0.00"]
 }

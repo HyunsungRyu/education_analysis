@@ -1,0 +1,11 @@
+digraph G {
+	overlap=scale splines=true
+	edge [fontsize=12]
+	node [fillcolor="#cae6df" shape=circle style=filled]
+	economic_status [label=economic_status]
+	node [shape=box style=""]
+	q38 [label=q38]
+	q4816 [label=q4816]
+	economic_status -> q4816 [label=1.000]
+	economic_status -> q38 [label="-0.254\np-val: 0.00"]
+}
