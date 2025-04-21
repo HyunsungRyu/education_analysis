@@ -78,11 +78,11 @@ father_rel ~~ mother_rel
 
 emotional_state =~ q221 + q223 + q226 + q23
 
-body_stress =~ q4812 + q4813 + q4814 + q4815
+body_image_stress =~ q4812 + q4813 + q4814 + q4815
 body_info =~ obesity
 
-body_experience =~ body_stress
-body_experience ~ body_info
+body_image_experience =~ body_image_stress
+body_image_experience =~ body_info
 
 exposure_violence =~ q35 + q351 + q352
 
@@ -91,24 +91,44 @@ impulse =~ q29 + q31
 crisis_behavior =~ substance + q2810 + impulse
 
 
-# H1: 학업 스트레스 -> 정서 상태
-emotional_state ~ academic_pressure
+# [1] 정서 상태(emotional_state)에 영향을 주는 요인들
+emotional_state ~ academic_pressure          # 학업 압박이 정서 상태에 영향
+emotional_state ~ human_rel                  # 인간 관계 → 정서 안정
+emotional_state ~ body_image_experience      # 신체 이미지 경험 → 정서 상태
+emotional_state ~ academic_stress            # 학업 스트레스 → 정서 상태
+emotional_state ~ exposure_violence          # 폭력 노출 → 정서 상태
+emotional_state ~ parent_rel                 # 부모와의 관계 → 정서 상태
+emotional_state ~ friend_rel                 # 친구 관계 → 정서 상태
 
-# H2: 사회적 관계 -> 정서 상태
-emotional_state ~ human_rel
+# [2] 충동성과 위기행동에 영향을 주는 정서 상태
+impulse ~ emotional_state                    # 감정 상태 → 충동성
+crisis_behavior ~ emotional_state            # 정서 상태 → 위기 행동
 
-# H3: 정서 상태 -> 위기 행동
-crisis_behavior ~ emotional_state
-impulse ~ emotional_state
+# [3] 폭력 노출의 영향
+impulse ~ exposure_violence                  # 폭력 경험 → 충동성
+human_rel ~ exposure_violence                # 폭력 경험 → 인간관계 악화
 
-# H4: 신체적 요인(스트레스) -> 정서 상태
-emotional_state ~ body_experience
+# [4] 학업 압박 관련 경로들
+academic_pressure ~ emotional_state          # 정서 상태 → 학업 압박
+academic_pressure ~ exam_anxiety             # 시험 불안 → 학업 압박
+academic_pressure ~ teacher_rel              # 교사 관계 → 학업 압박
+academic_pressure ~ human_rel                # 인간 관계 악화 → 학업 압박 증가
 
-# H5: 폭력 노출 -> 위기 행동
-impulse ~ exposure_violence
+# [5] 학업 스트레스 관련 경로
+academic_stress ~ human_rel                  # 좋은 인간 관계 → 학업 스트레스 완충
+academic_stress ~ parent_rel                 # 부모 관계 → 학업 스트레스
 
-# H6: 인간 관계 -> 위기 행동
-impulse ~ human_rel
+# [6] 인간 관계에 영향을 주는 경로
+human_rel ~ academic_pressure                # 학업 압박 → 인간 관계 악화
+
+# [7] 충동성과 위기행동
+impulse ~ academic_pressure                  # 학업 압박 → 충동성
+impulse ~ friend_rel                         # 친구 관계 → 충동 억제
+crisis_behavior ~ academic_pressure          # 학업 압박 → 위기 행동
+crisis_behavior ~ impulse                    # 충동성 → 위기 행동
+
+# [8] 정서 ↔ 신체 이미지 경험 간 상호작용
+body_image_experience ~ emotional_state      # 정서 상태 → 신체 이미지 인식
 
 </pre>
 		</div>
@@ -122,7 +142,7 @@ impulse ~ human_rel
 	    </h2>
 	    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
 	      <div class="accordion-body">
-		<div class="row"><div class="col-sm-2">all</div><div class="col-sm-6">q487, exam_anxiety, q4814, q352, parent_rel, q31, crisis_behavior, father_rel, human_rel, q288, body_stress, q4812, emotional_state, q289, q221, obesity, exposure_violence, q485, q132, q225, q171, q172, impulse, friend_rel, q351, q162, q4813, q161, body_info, q226, q061, q35, teacher_rel, q072, q23, q4815, mother_rel, academic_stress, q062, group_rel, q486, q287, q073, q136, q224, q29, q223, q488, body_experience, substance, q2810, academic_pressure</div></div><div class="row"><div class="col-sm-2">endogenous</div><div class="col-sm-6">q162, q4813, q161, q487, q226, exam_anxiety, q4814, q061, q35, teacher_rel, q352, parent_rel, q31, q072, q23, crisis_behavior, father_rel, q4815, mother_rel, academic_stress, q062, group_rel, q486, q287, q288, body_stress, q4812, emotional_state, q073, q136, q224, q29, q289, q223, q488, body_experience, q221, obesity, q485, q132, substance, q225, q2810, q171, q172, impulse, friend_rel, q351</div></div><div class="row"><div class="col-sm-2">exogenous</div><div class="col-sm-6">academic_pressure, exposure_violence, body_info, human_rel</div></div><div class="row"><div class="col-sm-2">observed</div><div class="col-sm-6">obesity, q061, q062, q072, q073, q132, q136, q161, q162, q171, q172, q221, q223, q224, q225, q226, q23, q2810, q287, q288, q289, q29, q31, q35, q351, q352, q4812, q4813, q4814, q4815, q485, q486, q487, q488</div></div><div class="row"><div class="col-sm-2">latent</div><div class="col-sm-6">exposure_violence, body_info, body_experience, group_rel, body_stress, substance, impulse, father_rel, crisis_behavior, exam_anxiety, mother_rel, emotional_state, academic_stress, friend_rel, teacher_rel, parent_rel, academic_pressure, human_rel</div></div><div class="row"><div class="col-sm-2">indicator</div><div class="col-sm-6">q162, q4813, q161, q487, q226, exam_anxiety, q4814, q061, q35, teacher_rel, q352, parent_rel, q31, q072, q23, father_rel, q4815, mother_rel, academic_stress, q062, group_rel, q486, q287, q288, body_stress, q4812, q073, q136, q224, q29, q223, q488, q289, q221, obesity, q485, q132, substance, q225, q2810, q171, q172, impulse, friend_rel, q351</div></div><div class="row"><div class="col-sm-2">output</div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-2">_output</div><div class="col-sm-6">q162, q4813, q161, q487, q226, q4814, q061, q35, q352, q31, q072, q23, q4815, q062, q486, q287, q288, q4812, q073, q136, q224, q29, q223, q488, q289, q221, obesity, q485, q132, q225, q2810, q171, q172, q351</div></div><div class="row"><div class="col-sm-2">inner</div><div class="col-sm-6">academic_pressure, academic_stress, body_experience, body_info, body_stress, crisis_behavior, emotional_state, exam_anxiety, exposure_violence, father_rel, friend_rel, group_rel, human_rel, impulse, mother_rel, parent_rel, substance, teacher_rel</div></div>
+		<div class="row"><div class="col-sm-2">all</div><div class="col-sm-6">body_info, q351, q29, q221, q132, academic_pressure, q352, q486, q487, obesity, q224, group_rel, q061, father_rel, q488, q062, q287, academic_stress, q171, mother_rel, q136, q31, q4813, q162, exam_anxiety, q073, q35, q225, q172, friend_rel, q4815, q072, human_rel, exposure_violence, crisis_behavior, q223, teacher_rel, q23, substance, parent_rel, impulse, q289, q226, q485, body_image_stress, body_image_experience, q161, emotional_state, q4812, q2810, q288, q4814</div></div><div class="row"><div class="col-sm-2">endogenous</div><div class="col-sm-6">body_info, friend_rel, q4815, q072, human_rel, q351, q29, q221, q132, crisis_behavior, academic_pressure, q223, q352, teacher_rel, q486, q23, q487, obesity, substance, parent_rel, impulse, q289, q224, q226, group_rel, q485, q061, body_image_stress, body_image_experience, q161, father_rel, q488, q062, emotional_state, q287, academic_stress, q171, mother_rel, q136, q31, q4812, q4813, q162, exam_anxiety, q073, q35, q2810, q225, q288, q172, q4814</div></div><div class="row"><div class="col-sm-2">exogenous</div><div class="col-sm-6">exposure_violence</div></div><div class="row"><div class="col-sm-2">observed</div><div class="col-sm-6">obesity, q061, q062, q072, q073, q132, q136, q161, q162, q171, q172, q221, q223, q224, q225, q226, q23, q2810, q287, q288, q289, q29, q31, q35, q351, q352, q4812, q4813, q4814, q4815, q485, q486, q487, q488</div></div><div class="row"><div class="col-sm-2">latent</div><div class="col-sm-6">teacher_rel, body_image_stress, friend_rel, body_info, body_image_experience, father_rel, human_rel, exam_anxiety, emotional_state, substance, exposure_violence, academic_stress, parent_rel, impulse, crisis_behavior, academic_pressure, group_rel, mother_rel</div></div><div class="row"><div class="col-sm-2">indicator</div><div class="col-sm-6">body_info, friend_rel, q4815, q072, q351, q29, q221, q132, q223, q352, teacher_rel, q486, q23, q487, obesity, substance, parent_rel, q289, q226, q224, impulse, group_rel, q485, q061, body_image_stress, q161, q488, q062, father_rel, q287, academic_stress, q171, mother_rel, q136, q31, q4812, q4813, q162, exam_anxiety, q073, q35, q2810, q225, q288, q172, q4814</div></div><div class="row"><div class="col-sm-2">output</div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-2">_output</div><div class="col-sm-6">q4815, q072, q351, q29, q221, q132, q223, q352, q486, q23, q487, obesity, q289, q226, q224, q485, q061, q161, q488, q062, q287, q171, q31, q136, q4812, q4813, q162, q073, q35, q2810, q225, q288, q172, q4814</div></div><div class="row"><div class="col-sm-2">inner</div><div class="col-sm-6">academic_pressure, academic_stress, body_image_experience, body_image_stress, body_info, crisis_behavior, emotional_state, exam_anxiety, exposure_violence, father_rel, friend_rel, group_rel, human_rel, impulse, mother_rel, parent_rel, substance, teacher_rel</div></div>
 	      </div>
 	    </div>
 	  </div>
@@ -152,7 +172,7 @@ impulse ~ human_rel
 	<a class="anchor" id="estimates"></a>
 	<h3>Estimates</h3>
 	<div style="font-family:monospace">
-	<div class="row"><div class='col-sm-2'></div><div class='col-sm-2'></div><div class='col-sm-1'>Estimate</div><div class='col-sm-1'>P-value</div></div><div class='col-sm-2'>Measurement:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>academic_stress =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q072</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q073</div><div class='col-sm-1'>0.830</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>exam_anxiety =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q485</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q486</div><div class='col-sm-1'>0.997</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q487</div><div class='col-sm-1'>0.983</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q488</div><div class='col-sm-1'>0.869</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>friend_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q132</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q136</div><div class='col-sm-1'>1.207</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>teacher_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q061</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q062</div><div class='col-sm-1'>1.114</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>father_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q161</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q162</div><div class='col-sm-1'>1.124</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>mother_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q171</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q172</div><div class='col-sm-1'>1.226</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>group_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q224</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q225</div><div class='col-sm-1'>1.049</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>emotional_state =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q221</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q223</div><div class='col-sm-1'>1.460</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q226</div><div class='col-sm-1'>0.962</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q23</div><div class='col-sm-1'>1.059</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_stress =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4812</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4813</div><div class='col-sm-1'>0.712</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4814</div><div class='col-sm-1'>1.100</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4815</div><div class='col-sm-1'>0.926</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_info =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>obesity</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>exposure_violence =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q35</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q351</div><div class='col-sm-1'>1.525</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q352</div><div class='col-sm-1'>1.654</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>substance =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q287</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q288</div><div class='col-sm-1'>1.742</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q289</div><div class='col-sm-1'>0.535</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>impulse =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q29</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q31</div><div class='col-sm-1'>1.216</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>crisis_behavior =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q2810</div><div class='col-sm-1'>1.857</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Regressions:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>academic_stress ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>exam_anxiety ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>1.392</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>father_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>mother_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.866</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>friend_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>teacher_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.604</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>parent_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.452</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>group_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>2.409</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_stress ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_experience</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>substance ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>impulse ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>3.080</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>-2.652</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>0.182</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>2.779</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_experience ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>6.785</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>emotional_state ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.233</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.555</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_experience</div><div class='col-sm-1'>-0.031</div><div class='col-sm-1'>0.097</div></div><div class="row"><div class='col-sm-2 text-end'>crisis_behavior ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>-0.033</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Variances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>father_rel</div><div class='col-sm-1'>0.009</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>0.039</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_stress</div><div class='col-sm-1'>0.044</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_experience</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>0.019</div><div class='col-sm-1'>0.001</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_stress</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>0.002</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>0.007</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exam_anxiety</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>0.026</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>friend_rel</div><div class='col-sm-1'>0.008</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>group_rel</div><div class='col-sm-1'>0.006</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>0.005</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>impulse</div><div class='col-sm-1'>0.076</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mother_rel</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.023</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>substance</div><div class='col-sm-1'>0.003</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>teacher_rel</div><div class='col-sm-1'>0.025</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>obesity</div><div class='col-sm-1'>1.410</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q061</div><div class='col-sm-1'>0.021</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q062</div><div class='col-sm-1'>0.045</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q072</div><div class='col-sm-1'>0.017</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q073</div><div class='col-sm-1'>0.043</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q132</div><div class='col-sm-1'>0.034</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q136</div><div class='col-sm-1'>0.053</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q161</div><div class='col-sm-1'>0.023</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q162</div><div class='col-sm-1'>0.026</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q171</div><div class='col-sm-1'>0.014</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q172</div><div class='col-sm-1'>0.017</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q221</div><div class='col-sm-1'>0.048</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q223</div><div class='col-sm-1'>0.024</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q224</div><div class='col-sm-1'>0.050</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q225</div><div class='col-sm-1'>0.029</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q226</div><div class='col-sm-1'>0.070</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q23</div><div class='col-sm-1'>0.026</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q2810</div><div class='col-sm-1'>0.053</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q287</div><div class='col-sm-1'>0.013</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q288</div><div class='col-sm-1'>0.085</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q289</div><div class='col-sm-1'>0.007</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q29</div><div class='col-sm-1'>0.225</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q31</div><div class='col-sm-1'>0.163</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q35</div><div class='col-sm-1'>0.001</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q351</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q352</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4812</div><div class='col-sm-1'>1.033</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4813</div><div class='col-sm-1'>1.114</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4814</div><div class='col-sm-1'>0.515</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4815</div><div class='col-sm-1'>0.679</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q485</div><div class='col-sm-1'>0.043</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q486</div><div class='col-sm-1'>0.042</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q487</div><div class='col-sm-1'>0.057</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q488</div><div class='col-sm-1'>0.058</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2'>Covariances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'>father_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mother_rel</div><div class='col-sm-1'>-0.009</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>academic_pressure ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>0.014</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>exposure_violence ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>0.786</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>0.002</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>human_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.003</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>-0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>-0.001</div><div class='col-sm-1'>0.000</div></div>
+	<div class="row"><div class='col-sm-2'></div><div class='col-sm-2'></div><div class='col-sm-1'>Estimate</div><div class='col-sm-1'>P-value</div></div><div class='col-sm-2'>Measurement:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>academic_stress =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q072</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q073</div><div class='col-sm-1'>0.830</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>exam_anxiety =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q485</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q486</div><div class='col-sm-1'>0.998</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q487</div><div class='col-sm-1'>0.982</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q488</div><div class='col-sm-1'>0.869</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>friend_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q132</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q136</div><div class='col-sm-1'>1.228</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>teacher_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q061</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q062</div><div class='col-sm-1'>1.020</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>father_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q161</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q162</div><div class='col-sm-1'>1.107</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>mother_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q171</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q172</div><div class='col-sm-1'>1.216</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>group_rel =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q224</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q225</div><div class='col-sm-1'>1.065</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>emotional_state =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q221</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q223</div><div class='col-sm-1'>1.469</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q226</div><div class='col-sm-1'>0.970</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q23</div><div class='col-sm-1'>1.069</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_image_stress =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4812</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4813</div><div class='col-sm-1'>0.716</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4814</div><div class='col-sm-1'>1.106</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4815</div><div class='col-sm-1'>0.932</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_info =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>obesity</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>exposure_violence =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q35</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q351</div><div class='col-sm-1'>1.525</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q352</div><div class='col-sm-1'>1.654</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>substance =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q287</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q288</div><div class='col-sm-1'>1.731</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q289</div><div class='col-sm-1'>0.533</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>impulse =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q29</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q31</div><div class='col-sm-1'>1.198</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>crisis_behavior =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q2810</div><div class='col-sm-1'>2.149</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Regressions:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>academic_stress ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>-12.389</div><div class='col-sm-1'>0.020</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.027</div><div class='col-sm-1'>0.802</div></div><div class="row"><div class='col-sm-2 text-end'>exam_anxiety ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.038</div><div class='col-sm-1'>0.404</div></div><div class="row"><div class='col-sm-2 text-end'>father_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>mother_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.887</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>friend_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>teacher_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.646</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>parent_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>1.196</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>group_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>2.358</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>body_image_stress ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_image_experience</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>body_info ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_image_experience</div><div class='col-sm-1'>0.165</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>substance ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>impulse ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>-15.757</div><div class='col-sm-1'>0.154</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>-2.010</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>1.051</div><div class='col-sm-1'>0.081</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.112</div><div class='col-sm-1'>0.504</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>friend_rel</div><div class='col-sm-1'>0.589</div><div class='col-sm-1'>0.251</div></div><div class="row"><div class='col-sm-2 text-end'>emotional_state ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.338</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>5.746</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_image_experience</div><div class='col-sm-1'>0.038</div><div class='col-sm-1'>0.002</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_stress</div><div class='col-sm-1'>-0.051</div><div class='col-sm-1'>0.591</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>-0.033</div><div class='col-sm-1'>0.017</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.192</div><div class='col-sm-1'>0.768</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>friend_rel</div><div class='col-sm-1'>-0.137</div><div class='col-sm-1'>0.013</div></div><div class="row"><div class='col-sm-2 text-end'>crisis_behavior ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>0.423</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.034</div><div class='col-sm-1'>0.005</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>impulse</div><div class='col-sm-1'>0.177</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'>human_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>-0.098</div><div class='col-sm-1'>0.458</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>-0.084</div><div class='col-sm-1'>0.689</div></div><div class="row"><div class='col-sm-2 text-end'>academic_pressure ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>0.180</div><div class='col-sm-1'>0.340</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exam_anxiety</div><div class='col-sm-1'>0.780</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>teacher_rel</div><div class='col-sm-1'>0.140</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>12.165</div><div class='col-sm-1'>0.019</div></div><div class="row"><div class='col-sm-2 text-end'>body_image_experience ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>-3.892</div><div class='col-sm-1'>0.000</div></div><div class='col-sm-2'>Variances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>father_rel</div><div class='col-sm-1'>0.012</div><div class='col-sm-1'>0.880</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_pressure</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>academic_stress</div><div class='col-sm-1'>0.043</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_image_experience</div><div class='col-sm-1'>0.525</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_image_stress</div><div class='col-sm-1'>0.076</div><div class='col-sm-1'>0.564</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>body_info</div><div class='col-sm-1'>0.435</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>crisis_behavior</div><div class='col-sm-1'>0.003</div><div class='col-sm-1'>0.002</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>emotional_state</div><div class='col-sm-1'>0.012</div><div class='col-sm-1'>0.007</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exam_anxiety</div><div class='col-sm-1'>0.077</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>exposure_violence</div><div class='col-sm-1'>0.026</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>friend_rel</div><div class='col-sm-1'>0.007</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>group_rel</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>human_rel</div><div class='col-sm-1'>0.021</div><div class='col-sm-1'>0.707</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>impulse</div><div class='col-sm-1'>0.823</div><div class='col-sm-1'>0.325</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mother_rel</div><div class='col-sm-1'>0.001</div><div class='col-sm-1'>0.990</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>parent_rel</div><div class='col-sm-1'>0.023</div><div class='col-sm-1'>0.770</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>substance</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>teacher_rel</div><div class='col-sm-1'>0.027</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>obesity</div><div class='col-sm-1'>0.972</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q061</div><div class='col-sm-1'>0.018</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q062</div><div class='col-sm-1'>0.049</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q072</div><div class='col-sm-1'>0.017</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q073</div><div class='col-sm-1'>0.043</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q132</div><div class='col-sm-1'>0.034</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q136</div><div class='col-sm-1'>0.053</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q161</div><div class='col-sm-1'>0.023</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q162</div><div class='col-sm-1'>0.027</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q171</div><div class='col-sm-1'>0.013</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q172</div><div class='col-sm-1'>0.017</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q221</div><div class='col-sm-1'>0.049</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q223</div><div class='col-sm-1'>0.024</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q224</div><div class='col-sm-1'>0.051</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q225</div><div class='col-sm-1'>0.029</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q226</div><div class='col-sm-1'>0.070</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q23</div><div class='col-sm-1'>0.026</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q2810</div><div class='col-sm-1'>0.051</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q287</div><div class='col-sm-1'>0.013</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q288</div><div class='col-sm-1'>0.085</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q289</div><div class='col-sm-1'>0.007</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q29</div><div class='col-sm-1'>0.222</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q31</div><div class='col-sm-1'>0.168</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q35</div><div class='col-sm-1'>0.001</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q351</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q352</div><div class='col-sm-1'>0.004</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4812</div><div class='col-sm-1'>1.042</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4813</div><div class='col-sm-1'>1.113</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4814</div><div class='col-sm-1'>0.513</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q4815</div><div class='col-sm-1'>0.676</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q485</div><div class='col-sm-1'>0.043</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q486</div><div class='col-sm-1'>0.042</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q487</div><div class='col-sm-1'>0.058</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>q488</div><div class='col-sm-1'>0.058</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2'>Covariances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'>father_rel ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>mother_rel</div><div class='col-sm-1'>-0.007</div><div class='col-sm-1'>0.916</div></div>
 	</div>
 	<br>
 	<div class="accordion" id="accordion3">
@@ -166,31 +186,31 @@ impulse ~ human_rel
 	      <div class="accordion-body" style="background-color: #f6f8fa;max-width: 100%;width: 100%">
 		<pre style="font-family: monospace">                lval  op               rval  Estimate  Std. Err    z-value  \
 0    academic_stress   ~  academic_pressure  1.000000         -          -   
-1       exam_anxiety   ~  academic_pressure  1.391819  0.044722  31.121882   
+1       exam_anxiety   ~  academic_pressure -0.038356  0.045927   -0.83516   
 2         father_rel   ~         parent_rel  1.000000         -          -   
-3         mother_rel   ~         parent_rel  0.866325  0.034178  25.347817   
+3         mother_rel   ~         parent_rel  0.887279  0.033983  26.109269   
 4         friend_rel   ~          human_rel  1.000000         -          -   
 ..               ...  ..                ...       ...       ...        ...   
-107            q4815  ~~              q4815  0.678574  0.017192  39.470575   
-108             q485  ~~               q485  0.042879   0.00112  38.289374   
-109             q486  ~~               q486  0.041993  0.001103  38.077224   
-110             q487  ~~               q487  0.057443  0.001364  42.123976   
-111             q488  ~~               q488  0.058291  0.001312  44.417291   
+117            q4815  ~~              q4815  0.676439   0.01732  39.055409   
+118             q485  ~~               q485  0.042879   0.00112  38.272415   
+119             q486  ~~               q486  0.041901  0.001102  38.014243   
+120             q487  ~~               q487  0.057689  0.001367  42.188681   
+121             q488  ~~               q488  0.058240  0.001312  44.396672   
 
-    p-value  
-0         -  
-1       0.0  
-2         -  
-3       0.0  
-4         -  
-..      ...  
-107     0.0  
-108     0.0  
-109     0.0  
-110     0.0  
-111     0.0  
+      p-value  
+0           -  
+1    0.403628  
+2           -  
+3         0.0  
+4           -  
+..        ...  
+117       0.0  
+118       0.0  
+119       0.0  
+120       0.0  
+121       0.0  
 
-[112 rows x 7 columns]</pre>
+[122 rows x 7 columns]</pre>
 	      </div>
 	    </div>
 	  </div>
@@ -209,16 +229,16 @@ impulse ~ human_rel
 Optimization method: SLSQP
 Optimization successful.
 Optimization terminated successfully
-Objective value: 0.782
-Number of iterations: 180
-Params: 0.830 0.997 0.983 0.869 1.392 1.207 1.114 1.124 1.226 0.866 1.049 1.604 1.452 2.409 1.460 0.962 1.059 0.712 1.100 0.926 1.525 1.654 1.742 0.535 1.216 1.857 3.080 -0.009 0.009 0.039 0.014 0.044 0.000 0.019 0.000 0.002 0.007 0.000 0.026 0.000 0.002 0.008 0.006 0.005 -0.003 -0.004 -0.001 0.076 0.000 1.410 0.023 0.021 0.045 0.017 0.043 0.034 0.053 0.023 0.026 0.014 0.017 0.048 0.024 0.050 0.029 0.070 0.026 0.053 0.013 0.085 0.007 0.225 0.163 0.001 0.004 0.004 1.033 1.114 0.515 0.679 0.043 0.042 0.057 0.058 0.003 0.025 6.785 -0.233 1.555 -0.031 -0.033 -2.652 0.182 2.779</pre>
+Objective value: 0.773
+Number of iterations: 254
+Params: 0.830 0.998 0.982 0.869 -0.038 1.228 1.020 1.107 1.216 0.887 1.065 1.646 1.196 2.358 1.469 0.970 1.069 0.716 1.106 0.932 0.165 1.525 1.654 1.731 0.533 1.198 2.149 -15.757 -0.007 0.012 0.000 0.043 0.525 0.076 0.435 0.003 0.012 0.077 0.026 0.007 0.004 0.021 0.823 0.001 0.972 0.023 0.018 0.049 0.017 0.043 0.034 0.053 0.023 0.027 0.013 0.017 0.049 0.024 0.051 0.029 0.070 0.026 0.051 0.013 0.085 0.007 0.222 0.168 0.001 0.004 0.004 1.042 1.113 0.513 0.676 0.043 0.042 0.058 0.058 0.004 0.027 -0.338 5.746 0.038 -0.051 -0.033 0.192 -0.137 -2.010 1.051 -0.112 0.589 0.423 -0.034 0.177 -0.098 -0.084 0.180 0.780 0.140 12.165 -12.389 0.027 -3.892</pre>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	<a class="anchor" id="indices"></a>
 	<h3>Fit indices</h3>
-	<table class="table"><thead><tr><th scope='col'>DoF</th><th scope='col'>DoF Baseline</th><th scope='col'>chi2</th><th scope='col'>chi2 p-value</th><th scope='col'>chi2 Baseline</th></tr></thead><tbody><tr><td>501.000</td><td>561.000</td><td>4205.801</td><td>0.000</td><td>80306.745</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>CFI</th><th scope='col'>GFI</th><th scope='col'>AGFI</th><th scope='col'>NFI</th><th scope='col'>TLI</th></tr></thead><tbody><tr><td>0.954</td><td>0.948</td><td>0.941</td><td>0.948</td><td>0.948</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>RMSEA</th><th scope='col'>AIC</th><th scope='col'>BIC</th><th scope='col'>LogLik</th></tr></thead><tbody><tr><td>0.037</td><td>186.435</td><td>805.867</td><td>0.782</td></tr></tbody></table>
+	<table class="table"><thead><tr><th scope='col'>DoF</th><th scope='col'>DoF Baseline</th><th scope='col'>chi2</th><th scope='col'>chi2 p-value</th><th scope='col'>chi2 Baseline</th></tr></thead><tbody><tr><td>491.000</td><td>561.000</td><td>4155.496</td><td>0.000</td><td>80306.745</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>CFI</th><th scope='col'>GFI</th><th scope='col'>AGFI</th><th scope='col'>NFI</th><th scope='col'>TLI</th></tr></thead><tbody><tr><td>0.954</td><td>0.948</td><td>0.941</td><td>0.948</td><td>0.947</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>RMSEA</th><th scope='col'>AIC</th><th scope='col'>BIC</th><th scope='col'>LogLik</th></tr></thead><tbody><tr><td>0.037</td><td>206.454</td><td>891.783</td><td>0.773</td></tr></tbody></table>
 	<a class="anchor" id="matrices"></a>
 	<h3>Matrices</h3>
  	<center><h4>Covariance matrix</h4></center>
@@ -1577,17 +1597,17 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.01</td>
       <td>0.01</td>
       <td>-0.00</td>
-      <td>-0.00</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.01</td>
+      <td>-0.02</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -1599,20 +1619,20 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.13</td>
       <td>0.09</td>
-      <td>0.14</td>
+      <td>0.15</td>
       <td>0.12</td>
       <td>0.02</td>
       <td>0.02</td>
       <td>0.02</td>
-      <td>0.02</td>
+      <td>0.01</td>
     </tr>
     <tr>
       <th>q061</th>
       <td>-0.01</td>
       <td>0.06</td>
       <td>0.04</td>
-      <td>-0.01</td>
-      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>0.01</td>
@@ -1624,7 +1644,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.02</td>
       <td>0.02</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -1634,9 +1654,9 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
       <td>-0.03</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
       <td>-0.04</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -1648,8 +1668,9 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>0.04</td>
       <td>0.09</td>
-      <td>-0.01</td>
-      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.01</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>0.01</td>
@@ -1659,9 +1680,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.02</td>
       <td>0.02</td>
       <td>0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.01</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -1671,10 +1691,10 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.04</td>
-      <td>-0.03</td>
       <td>-0.05</td>
       <td>-0.04</td>
+      <td>-0.05</td>
+      <td>-0.05</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -1683,35 +1703,35 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     <tr>
       <th>q072</th>
       <td>0.01</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.10</td>
       <td>0.07</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.02</td>
+      <td>-0.02</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.02</td>
       <td>-0.02</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.04</td>
       <td>0.05</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.10</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.07</td>
-      <td>0.11</td>
-      <td>0.09</td>
+      <td>0.05</td>
+      <td>0.07</td>
+      <td>0.06</td>
       <td>0.05</td>
       <td>0.05</td>
       <td>0.05</td>
@@ -1720,8 +1740,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     <tr>
       <th>q073</th>
       <td>0.01</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.07</td>
       <td>0.10</td>
       <td>-0.00</td>
@@ -1732,23 +1752,23 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.01</td>
       <td>-0.02</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.01</td>
-      <td>-0.02</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.03</td>
       <td>0.04</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.08</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.06</td>
-      <td>0.09</td>
-      <td>0.08</td>
+      <td>0.04</td>
+      <td>0.06</td>
+      <td>0.05</td>
       <td>0.05</td>
       <td>0.05</td>
       <td>0.04</td>
@@ -1782,10 +1802,10 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
       <td>-0.03</td>
       <td>-0.02</td>
+      <td>-0.03</td>
+      <td>-0.03</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -1793,7 +1813,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     </tr>
     <tr>
       <th>q136</th>
-      <td>-0.00</td>
+      <td>-0.01</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>-0.00</td>
@@ -1805,28 +1825,28 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.01</td>
       <td>0.01</td>
       <td>0.01</td>
+      <td>0.01</td>
+      <td>0.02</td>
       <td>0.02</td>
       <td>0.01</td>
       <td>0.01</td>
-      <td>0.01</td>
-      <td>0.01</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.01</td>
-      <td>-0.02</td>
+      <td>-0.01</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
+      <td>-0.04</td>
       <td>-0.03</td>
-      <td>-0.02</td>
-      <td>-0.03</td>
+      <td>-0.04</td>
       <td>-0.03</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.00</td>
+      <td>-0.01</td>
     </tr>
     <tr>
       <th>q161</th>
@@ -1843,7 +1863,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.02</td>
       <td>0.01</td>
       <td>0.02</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.01</td>
       <td>0.01</td>
@@ -1852,25 +1872,25 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.04</td>
       <td>-0.03</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.05</td>
       <td>-0.04</td>
-      <td>-0.03</td>
+      <td>-0.06</td>
+      <td>-0.05</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.01</td>
+      <td>-0.00</td>
     </tr>
     <tr>
       <th>q162</th>
       <td>-0.01</td>
       <td>0.01</td>
       <td>0.01</td>
-      <td>-0.01</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>0.01</td>
       <td>0.01</td>
@@ -1889,14 +1909,14 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.04</td>
       <td>-0.03</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.06</td>
       <td>-0.04</td>
-      <td>-0.04</td>
+      <td>-0.06</td>
+      <td>-0.05</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -1904,7 +1924,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     </tr>
     <tr>
       <th>q171</th>
-      <td>-0.00</td>
+      <td>-0.01</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>-0.00</td>
@@ -1925,18 +1945,18 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.01</td>
+      <td>-0.02</td>
       <td>-0.02</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
+      <td>-0.05</td>
       <td>-0.03</td>
-      <td>-0.02</td>
-      <td>-0.03</td>
-      <td>-0.03</td>
+      <td>-0.05</td>
+      <td>-0.04</td>
       <td>-0.01</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
     </tr>
     <tr>
@@ -1957,20 +1977,20 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.02</td>
       <td>0.02</td>
       <td>0.01</td>
-      <td>0.01</td>
+      <td>0.02</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.04</td>
       <td>-0.03</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.06</td>
       <td>-0.04</td>
-      <td>-0.04</td>
+      <td>-0.06</td>
+      <td>-0.05</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -1980,7 +2000,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <th>q221</th>
       <td>-0.01</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>-0.02</td>
       <td>-0.01</td>
       <td>0.01</td>
@@ -2008,8 +2028,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.06</td>
       <td>-0.10</td>
       <td>-0.08</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
+      <td>-0.03</td>
+      <td>-0.03</td>
       <td>-0.02</td>
       <td>-0.02</td>
     </tr>
@@ -2021,7 +2041,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.02</td>
       <td>-0.02</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.02</td>
       <td>0.02</td>
@@ -2039,15 +2059,15 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.07</td>
       <td>-0.09</td>
       <td>-0.00</td>
-      <td>-0.00</td>
+      <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.13</td>
       <td>-0.09</td>
       <td>-0.14</td>
       <td>-0.12</td>
-      <td>-0.03</td>
-      <td>-0.03</td>
-      <td>-0.03</td>
+      <td>-0.04</td>
+      <td>-0.04</td>
+      <td>-0.04</td>
       <td>-0.03</td>
     </tr>
     <tr>
@@ -2055,11 +2075,11 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>0.02</td>
       <td>0.02</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
-      <td>0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.01</td>
       <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.01</td>
       <td>0.02</td>
@@ -2078,10 +2098,10 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.06</td>
-      <td>-0.04</td>
+      <td>-0.08</td>
+      <td>-0.05</td>
+      <td>-0.08</td>
       <td>-0.07</td>
-      <td>-0.06</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -2092,10 +2112,10 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>0.02</td>
       <td>0.02</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.01</td>
-      <td>0.01</td>
+      <td>0.02</td>
       <td>0.02</td>
       <td>0.02</td>
       <td>0.01</td>
@@ -2111,14 +2131,14 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.03</td>
-      <td>-0.04</td>
+      <td>-0.03</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.08</td>
       <td>-0.06</td>
-      <td>-0.04</td>
-      <td>-0.07</td>
-      <td>-0.06</td>
+      <td>-0.09</td>
+      <td>-0.08</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
@@ -2128,7 +2148,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <th>q226</th>
       <td>-0.01</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>-0.02</td>
       <td>-0.01</td>
       <td>0.01</td>
@@ -2163,17 +2183,17 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     </tr>
     <tr>
       <th>q23</th>
+      <td>-0.02</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>-0.02</td>
       <td>-0.01</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>0.01</td>
       <td>0.02</td>
       <td>0.01</td>
-      <td>0.01</td>
+      <td>0.02</td>
       <td>0.03</td>
       <td>0.04</td>
       <td>0.02</td>
@@ -2195,7 +2215,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.09</td>
       <td>-0.03</td>
       <td>-0.03</td>
-      <td>-0.02</td>
+      <td>-0.03</td>
       <td>-0.02</td>
     </tr>
     <tr>
@@ -2203,8 +2223,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2230,18 +2250,18 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.01</td>
       <td>0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
     </tr>
     <tr>
       <th>q287</th>
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2267,18 +2287,18 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
     </tr>
     <tr>
       <th>q288</th>
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2295,7 +2315,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.01</td>
       <td>0.10</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2304,18 +2324,18 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.01</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
     </tr>
     <tr>
       <th>q289</th>
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2341,10 +2361,10 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
     </tr>
     <tr>
       <th>q29</th>
@@ -2357,7 +2377,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.02</td>
-      <td>-0.01</td>
+      <td>-0.02</td>
       <td>-0.02</td>
       <td>-0.05</td>
       <td>-0.07</td>
@@ -2367,20 +2387,20 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.05</td>
       <td>0.02</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.00</td>
       <td>0.43</td>
       <td>0.25</td>
       <td>0.01</td>
-      <td>0.01</td>
-      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.02</td>
+      <td>0.16</td>
+      <td>0.12</td>
       <td>0.18</td>
-      <td>0.13</td>
-      <td>0.20</td>
-      <td>0.17</td>
-      <td>0.05</td>
-      <td>0.05</td>
-      <td>0.05</td>
+      <td>0.15</td>
+      <td>0.06</td>
+      <td>0.06</td>
+      <td>0.06</td>
       <td>0.05</td>
     </tr>
     <tr>
@@ -2391,15 +2411,15 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.05</td>
       <td>0.04</td>
       <td>-0.01</td>
+      <td>-0.01</td>
+      <td>-0.03</td>
+      <td>-0.03</td>
       <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
+      <td>-0.03</td>
       <td>-0.06</td>
       <td>-0.09</td>
       <td>-0.03</td>
-      <td>-0.04</td>
+      <td>-0.03</td>
       <td>-0.06</td>
       <td>-0.07</td>
       <td>0.02</td>
@@ -2409,15 +2429,15 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.25</td>
       <td>0.47</td>
       <td>0.01</td>
-      <td>0.01</td>
       <td>0.02</td>
-      <td>0.22</td>
-      <td>0.16</td>
-      <td>0.24</td>
-      <td>0.20</td>
-      <td>0.06</td>
-      <td>0.06</td>
-      <td>0.06</td>
+      <td>0.02</td>
+      <td>0.19</td>
+      <td>0.14</td>
+      <td>0.21</td>
+      <td>0.18</td>
+      <td>0.07</td>
+      <td>0.07</td>
+      <td>0.07</td>
       <td>0.06</td>
     </tr>
     <tr>
@@ -2425,8 +2445,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2450,7 +2470,7 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.04</td>
       <td>0.01</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.01</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2462,45 +2482,8 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.06</td>
-      <td>0.06</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>0.02</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>q352</th>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
       <td>-0.00</td>
@@ -2517,14 +2500,51 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.02</td>
+      <td>0.02</td>
+      <td>0.04</td>
+      <td>0.06</td>
+      <td>0.06</td>
       <td>0.01</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>q352</th>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
       <td>0.02</td>
       <td>0.04</td>
       <td>0.06</td>
       <td>0.07</td>
       <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
-      <td>0.03</td>
       <td>0.02</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2534,150 +2554,150 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     <tr>
       <th>q4812</th>
       <td>0.13</td>
-      <td>-0.04</td>
-      <td>-0.04</td>
-      <td>0.10</td>
-      <td>0.08</td>
-      <td>-0.02</td>
+      <td>-0.05</td>
+      <td>-0.05</td>
+      <td>0.07</td>
+      <td>0.06</td>
       <td>-0.03</td>
       <td>-0.04</td>
-      <td>-0.04</td>
-      <td>-0.03</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
+      <td>-0.06</td>
+      <td>-0.05</td>
+      <td>-0.06</td>
       <td>-0.09</td>
       <td>-0.13</td>
-      <td>-0.06</td>
-      <td>-0.06</td>
+      <td>-0.08</td>
+      <td>-0.08</td>
       <td>-0.09</td>
       <td>-0.09</td>
       <td>0.01</td>
       <td>0.00</td>
       <td>0.01</td>
       <td>0.00</td>
-      <td>0.18</td>
-      <td>0.22</td>
+      <td>0.16</td>
+      <td>0.19</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>1.92</td>
       <td>0.63</td>
-      <td>0.98</td>
+      <td>0.97</td>
       <td>0.82</td>
-      <td>0.14</td>
-      <td>0.14</td>
-      <td>0.13</td>
-      <td>0.12</td>
+      <td>0.10</td>
+      <td>0.10</td>
+      <td>0.10</td>
+      <td>0.09</td>
     </tr>
     <tr>
       <th>q4813</th>
       <td>0.09</td>
       <td>-0.03</td>
-      <td>-0.03</td>
-      <td>0.07</td>
-      <td>0.06</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
-      <td>-0.03</td>
-      <td>-0.03</td>
+      <td>-0.04</td>
+      <td>0.05</td>
+      <td>0.04</td>
       <td>-0.02</td>
       <td>-0.03</td>
+      <td>-0.04</td>
+      <td>-0.04</td>
+      <td>-0.03</td>
+      <td>-0.04</td>
       <td>-0.06</td>
       <td>-0.09</td>
-      <td>-0.04</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
+      <td>-0.06</td>
       <td>-0.06</td>
       <td>-0.07</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.13</td>
-      <td>0.16</td>
+      <td>0.12</td>
+      <td>0.14</td>
       <td>0.01</td>
-      <td>0.02</td>
-      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.01</td>
       <td>0.63</td>
-      <td>1.57</td>
+      <td>1.56</td>
       <td>0.70</td>
       <td>0.59</td>
-      <td>0.10</td>
-      <td>0.10</td>
-      <td>0.10</td>
-      <td>0.08</td>
+      <td>0.07</td>
+      <td>0.07</td>
+      <td>0.07</td>
+      <td>0.06</td>
     </tr>
     <tr>
       <th>q4814</th>
-      <td>0.14</td>
-      <td>-0.04</td>
+      <td>0.15</td>
       <td>-0.05</td>
-      <td>0.11</td>
-      <td>0.09</td>
-      <td>-0.03</td>
-      <td>-0.03</td>
-      <td>-0.04</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
+      <td>0.07</td>
+      <td>0.06</td>
       <td>-0.03</td>
       <td>-0.04</td>
+      <td>-0.06</td>
+      <td>-0.06</td>
+      <td>-0.05</td>
+      <td>-0.06</td>
       <td>-0.10</td>
       <td>-0.14</td>
-      <td>-0.07</td>
-      <td>-0.07</td>
+      <td>-0.08</td>
+      <td>-0.09</td>
       <td>-0.09</td>
       <td>-0.10</td>
       <td>0.01</td>
       <td>0.00</td>
       <td>0.01</td>
       <td>0.00</td>
-      <td>0.20</td>
-      <td>0.24</td>
+      <td>0.18</td>
+      <td>0.21</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.02</td>
-      <td>0.03</td>
-      <td>0.98</td>
+      <td>0.97</td>
       <td>0.70</td>
       <td>1.59</td>
       <td>0.91</td>
-      <td>0.15</td>
-      <td>0.15</td>
-      <td>0.15</td>
-      <td>0.13</td>
+      <td>0.11</td>
+      <td>0.11</td>
+      <td>0.11</td>
+      <td>0.09</td>
     </tr>
     <tr>
       <th>q4815</th>
       <td>0.12</td>
       <td>-0.04</td>
-      <td>-0.04</td>
-      <td>0.09</td>
-      <td>0.08</td>
-      <td>-0.02</td>
+      <td>-0.05</td>
+      <td>0.06</td>
+      <td>0.05</td>
       <td>-0.03</td>
       <td>-0.03</td>
+      <td>-0.05</td>
+      <td>-0.05</td>
       <td>-0.04</td>
-      <td>-0.03</td>
-      <td>-0.04</td>
+      <td>-0.05</td>
       <td>-0.08</td>
       <td>-0.12</td>
-      <td>-0.06</td>
-      <td>-0.06</td>
+      <td>-0.07</td>
+      <td>-0.08</td>
       <td>-0.08</td>
       <td>-0.09</td>
       <td>0.01</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.17</td>
-      <td>0.20</td>
+      <td>0.15</td>
+      <td>0.18</td>
       <td>0.01</td>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>0.02</td>
       <td>0.82</td>
       <td>0.59</td>
       <td>0.91</td>
       <td>1.44</td>
-      <td>0.13</td>
-      <td>0.13</td>
-      <td>0.12</td>
-      <td>0.11</td>
+      <td>0.09</td>
+      <td>0.09</td>
+      <td>0.09</td>
+      <td>0.08</td>
     </tr>
     <tr>
       <th>q485</th>
@@ -2692,25 +2712,25 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
-      <td>-0.02</td>
       <td>-0.03</td>
+      <td>-0.04</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.03</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.05</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.06</td>
+      <td>0.07</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.14</td>
       <td>0.10</td>
-      <td>0.15</td>
-      <td>0.13</td>
+      <td>0.07</td>
+      <td>0.11</td>
+      <td>0.09</td>
       <td>0.12</td>
       <td>0.08</td>
       <td>0.07</td>
@@ -2727,27 +2747,27 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.03</td>
+      <td>-0.04</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.03</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
-      <td>-0.02</td>
-      <td>-0.03</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.05</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.06</td>
+      <td>0.07</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.14</td>
       <td>0.10</td>
-      <td>0.15</td>
-      <td>0.13</td>
+      <td>0.07</td>
+      <td>0.11</td>
+      <td>0.09</td>
       <td>0.08</td>
       <td>0.12</td>
       <td>0.07</td>
@@ -2764,27 +2784,27 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.02</td>
+      <td>-0.04</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.03</td>
-      <td>-0.01</td>
-      <td>-0.01</td>
-      <td>-0.02</td>
-      <td>-0.02</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.05</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.06</td>
+      <td>0.07</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.13</td>
       <td>0.10</td>
-      <td>0.15</td>
-      <td>0.12</td>
+      <td>0.07</td>
+      <td>0.11</td>
+      <td>0.09</td>
       <td>0.07</td>
       <td>0.07</td>
       <td>0.13</td>
@@ -2792,14 +2812,14 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
     </tr>
     <tr>
       <th>q488</th>
-      <td>0.02</td>
+      <td>0.01</td>
       <td>-0.01</td>
       <td>-0.01</td>
       <td>0.05</td>
       <td>0.04</td>
       <td>-0.00</td>
-      <td>-0.00</td>
       <td>-0.01</td>
+      <td>-0.00</td>
       <td>-0.01</td>
       <td>-0.00</td>
       <td>-0.01</td>
@@ -2809,19 +2829,19 @@ type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Mode
       <td>-0.01</td>
       <td>-0.02</td>
       <td>-0.02</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
       <td>0.05</td>
       <td>0.06</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.12</td>
+      <td>0.09</td>
+      <td>0.06</td>
+      <td>0.09</td>
       <td>0.08</td>
-      <td>0.13</td>
-      <td>0.11</td>
       <td>0.07</td>
       <td>0.07</td>
       <td>0.06</td>
@@ -2855,9 +2875,9 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -2882,18 +2902,18 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.18</td>
+      <td>0.78</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>12.16</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>0.14</td>
     </tr>
     <tr>
       <th>academic_stress</th>
@@ -2909,6 +2929,27 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>-12.39</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>body_image_experience</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-3.89</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2917,11 +2958,11 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_experience</th>
+      <th>body_image_stress</th>
       <td>0.00</td>
       <td>0.00</td>
+      <td>1.00</td>
       <td>0.00</td>
-      <td>6.78</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2941,28 +2982,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <th>body_info</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_stress</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>1.00</td>
+      <td>0.16</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -2981,20 +3001,20 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>crisis_behavior</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
       <td>-0.03</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.42</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.18</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3002,28 +3022,28 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>emotional_state</th>
-      <td>-0.23</td>
+      <td>-0.34</td>
+      <td>-0.05</td>
+      <td>0.04</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>-0.03</td>
       <td>0.00</td>
+      <td>-0.14</td>
+      <td>0.00</td>
+      <td>5.75</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>1.55</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>0.19</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>exam_anxiety</th>
-      <td>1.39</td>
+      <td>-0.04</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3119,7 +3139,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>2.41</td>
+      <td>2.36</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3128,6 +3148,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>human_rel</th>
+      <td>-0.08</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3135,8 +3156,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>-0.10</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3149,19 +3169,19 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>impulse</th>
+      <td>-0.11</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>-15.76</td>
+      <td>-2.01</td>
       <td>0.00</td>
-      <td>3.08</td>
-      <td>-2.65</td>
+      <td>1.05</td>
       <td>0.00</td>
-      <td>0.18</td>
-      <td>0.00</td>
+      <td>0.59</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>2.78</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3185,7 +3205,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.87</td>
+      <td>0.89</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -3203,7 +3223,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.45</td>
+      <td>1.20</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3245,7 +3265,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.60</td>
+      <td>1.65</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3259,9 +3279,9 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -3321,10 +3341,31 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>body_image_stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3346,27 +3387,6 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_stress</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>1.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3663,9 +3683,9 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -3690,18 +3710,18 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b63</td>
+      <td>_b64</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b66</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>_b65</td>
     </tr>
     <tr>
       <th>academic_stress</th>
@@ -3717,43 +3737,22 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b67</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_experience</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_b46</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>_b68</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_info</th>
+      <th>body_image_experience</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
+      <td>_b69</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3767,7 +3766,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_stress</th>
+      <th>body_image_stress</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>_b34</td>
@@ -3788,14 +3787,14 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
-      <th>crisis_behavior</th>
+      <th>body_info</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b35</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_b50</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3809,23 +3808,44 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
     </tr>
     <tr>
+      <th>crisis_behavior</th>
+      <td>_b59</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b58</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b60</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>emotional_state</th>
       <td>_b47</td>
-      <td>0.00</td>
+      <td>_b50</td>
       <td>_b49</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b51</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>_b53</td>
       <td>0.00</td>
       <td>_b48</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
+      <td>_b52</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -3936,6 +3956,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>human_rel</th>
+      <td>_b62</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3943,8 +3964,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>_b61</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -3957,19 +3977,19 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
     </tr>
     <tr>
       <th>impulse</th>
+      <td>_b56</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b46</td>
+      <td>_b54</td>
       <td>0.00</td>
-      <td>_b45</td>
-      <td>_b51</td>
+      <td>_b55</td>
       <td>0.00</td>
-      <td>_b52</td>
-      <td>0.00</td>
+      <td>_b57</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b53</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4025,7 +4045,7 @@ type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b43</td>
+      <td>_b44</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4076,9 +4096,9 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -4100,8 +4120,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.00</td>
       <td>0.00</td>
+      <td>1.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4156,7 +4176,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.11</td>
+      <td>1.02</td>
     </tr>
     <tr>
       <th>q072</th>
@@ -4233,7 +4253,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.21</td>
+      <td>1.23</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4274,7 +4294,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.12</td>
+      <td>1.11</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4321,7 +4341,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.23</td>
+      <td>1.22</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4355,7 +4375,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.46</td>
+      <td>1.47</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4402,7 +4422,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.05</td>
+      <td>1.06</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4418,7 +4438,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.96</td>
+      <td>0.97</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4439,7 +4459,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.06</td>
+      <td>1.07</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4459,7 +4479,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.86</td>
+      <td>2.15</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4512,7 +4532,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.74</td>
+      <td>1.73</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -4572,7 +4592,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.22</td>
+      <td>1.20</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4646,8 +4666,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>1.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4667,8 +4687,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.72</td>
       <td>0.00</td>
-      <td>0.71</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4688,8 +4708,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>1.11</td>
       <td>0.00</td>
-      <td>1.10</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4709,8 +4729,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>0.93</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -4816,9 +4836,9 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -4840,8 +4860,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.00</td>
       <td>0.00</td>
+      <td>1.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5386,8 +5406,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>1.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5407,8 +5427,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>0.36</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5428,8 +5448,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>0.49</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5449,8 +5469,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>0.43</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5556,9 +5576,9 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -5580,8 +5600,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b33</td>
       <td>0.00</td>
+      <td>_b33</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5939,7 +5959,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b44</td>
+      <td>_b45</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -5971,7 +5991,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b38</td>
+      <td>_b39</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -5992,7 +6012,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b39</td>
+      <td>_b40</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -6013,32 +6033,11 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b40</td>
+      <td>_b41</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>q29</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_b41</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>q31</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6059,7 +6058,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
     </tr>
     <tr>
-      <th>q35</th>
+      <th>q31</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6068,19 +6067,19 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_b35</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>_b43</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
     <tr>
-      <th>q351</th>
+      <th>q35</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6101,7 +6100,7 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
     </tr>
     <tr>
-      <th>q352</th>
+      <th>q351</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6122,12 +6121,33 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
     </tr>
     <tr>
+      <th>q352</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b38</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
       <th>q4812</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>_b29</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6147,8 +6167,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>_b30</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6168,8 +6188,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>_b31</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6189,8 +6209,8 @@ type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
       <td>_b32</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6305,9 +6325,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -6326,10 +6346,6 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
   <tbody>
     <tr>
       <th>academic_pressure</th>
-      <td>0.04</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.01</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6338,7 +6354,11 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6367,11 +6387,32 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.53</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>body_image_stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.08</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6389,32 +6430,11 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>body_info</th>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.02</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_stress</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>0.44</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6480,7 +6500,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
+      <td>0.08</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6506,7 +6526,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6568,7 +6588,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.01</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6578,19 +6598,19 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>human_rel</th>
-      <td>-0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>-0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>-0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6612,7 +6632,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.08</td>
+      <td>0.82</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6709,9 +6729,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -6771,11 +6791,32 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
     </tr>
     <tr>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.05</td>
       <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>body_image_stress</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.05</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -6793,27 +6834,6 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>body_info</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.05</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_stress</th>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7113,9 +7133,9 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <th></th>
       <th>academic_pressure</th>
       <th>academic_stress</th>
-      <th>body_experience</th>
+      <th>body_image_experience</th>
+      <th>body_image_stress</th>
       <th>body_info</th>
-      <th>body_stress</th>
       <th>crisis_behavior</th>
       <th>emotional_state</th>
       <th>exam_anxiety</th>
@@ -7137,16 +7157,16 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>_c3</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c4</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c13</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c18</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7155,6 +7175,28 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>academic_stress</th>
+      <td>0.00</td>
+      <td>_c4</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>body_image_experience</th>
+      <td>0.00</td>
       <td>0.00</td>
       <td>_c5</td>
       <td>0.00</td>
@@ -7172,10 +7214,10 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
     </tr>
     <tr>
-      <th>body_experience</th>
+      <th>body_image_stress</th>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>_c6</td>
@@ -7193,36 +7235,14 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.00</td>
     </tr>
     <tr>
       <th>body_info</th>
-      <td>_c4</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>_c7</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c14</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c19</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <th>body_stress</th>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c8</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7244,7 +7264,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c9</td>
+      <td>_c8</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7266,7 +7286,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c10</td>
+      <td>_c9</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7288,7 +7308,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c11</td>
+      <td>_c10</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7302,19 +7322,19 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>exposure_violence</th>
-      <td>_c13</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c14</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c12</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c20</td>
+      <td>0.00</td>
+      <td>_c11</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7354,7 +7374,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c15</td>
+      <td>_c12</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7376,7 +7396,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c16</td>
+      <td>_c13</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7386,19 +7406,19 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
     </tr>
     <tr>
       <th>human_rel</th>
-      <td>_c18</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>_c19</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c20</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c17</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c14</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7420,7 +7440,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c21</td>
+      <td>_c15</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7442,7 +7462,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c22</td>
+      <td>_c16</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -7464,7 +7484,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c24</td>
+      <td>_c18</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -7486,7 +7506,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c58</td>
+      <td>_c52</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -7508,7 +7528,7 @@ type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</b
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c59</td>
+      <td>_c53</td>
     </tr>
   </tbody>
 </table></div></div></div><div class="tab-pane fade " id="mxTheta" role="tabpanel" aria-labelledby="mxTheta-tab"><ul class="nav nav-tabs" id="Thetasub" role="tablist"><li class="nav-item" role="presentation">
@@ -7563,7 +7583,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
   <tbody>
     <tr>
       <th>obesity</th>
-      <td>1.41</td>
+      <td>0.97</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -8285,7 +8305,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.08</td>
+      <td>0.09</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -8361,7 +8381,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.23</td>
+      <td>0.22</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -8399,7 +8419,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>0.16</td>
+      <td>0.17</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -8551,7 +8571,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>1.03</td>
+      <td>1.04</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10163,7 +10183,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
   <tbody>
     <tr>
       <th>obesity</th>
-      <td>_c23</td>
+      <td>_c17</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10201,7 +10221,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
     <tr>
       <th>q061</th>
       <td>0.00</td>
-      <td>_c25</td>
+      <td>_c19</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10239,7 +10259,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <th>q062</th>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c26</td>
+      <td>_c20</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10277,7 +10297,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c27</td>
+      <td>_c21</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10315,7 +10335,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c28</td>
+      <td>_c22</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10353,7 +10373,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c29</td>
+      <td>_c23</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10391,7 +10411,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c30</td>
+      <td>_c24</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10429,7 +10449,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c31</td>
+      <td>_c25</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10467,7 +10487,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c32</td>
+      <td>_c26</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10505,7 +10525,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c33</td>
+      <td>_c27</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10543,7 +10563,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c34</td>
+      <td>_c28</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10581,7 +10601,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c35</td>
+      <td>_c29</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10619,7 +10639,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c36</td>
+      <td>_c30</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10657,7 +10677,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c37</td>
+      <td>_c31</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10695,7 +10715,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c38</td>
+      <td>_c32</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10733,7 +10753,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c39</td>
+      <td>_c33</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10771,7 +10791,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c40</td>
+      <td>_c34</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10809,7 +10829,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c41</td>
+      <td>_c35</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10847,7 +10867,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c42</td>
+      <td>_c36</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10885,7 +10905,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c43</td>
+      <td>_c37</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10923,7 +10943,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c44</td>
+      <td>_c38</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10961,7 +10981,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c45</td>
+      <td>_c39</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -10999,7 +11019,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c46</td>
+      <td>_c40</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11037,7 +11057,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c47</td>
+      <td>_c41</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11075,7 +11095,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c48</td>
+      <td>_c42</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11113,7 +11133,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c49</td>
+      <td>_c43</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11151,7 +11171,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c50</td>
+      <td>_c44</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11189,7 +11209,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c51</td>
+      <td>_c45</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11227,7 +11247,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c52</td>
+      <td>_c46</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11265,7 +11285,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c53</td>
+      <td>_c47</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11303,7 +11323,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c54</td>
+      <td>_c48</td>
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
@@ -11341,7 +11361,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c55</td>
+      <td>_c49</td>
       <td>0.00</td>
       <td>0.00</td>
     </tr>
@@ -11379,7 +11399,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c56</td>
+      <td>_c50</td>
       <td>0.00</td>
     </tr>
     <tr>
@@ -11417,7 +11437,7 @@ type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names<
       <td>0.00</td>
       <td>0.00</td>
       <td>0.00</td>
-      <td>_c57</td>
+      <td>_c51</td>
     </tr>
   </tbody>
 </table></div></div></div></div>
