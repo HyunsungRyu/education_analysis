@@ -2,9 +2,9 @@ digraph G {
 	overlap=scale splines=true
 	edge [fontsize=12]
 	node [fillcolor="#cae6df" shape=circle style=filled]
+	support [label=support]
 	financial_environment [label=financial_environment]
 	financial_support [label=financial_support]
-	support [label=support]
 	time_support [label=time_support]
 	node [shape=box style=""]
 	need_money [label=need_money]
