@@ -2,8 +2,8 @@ digraph G {
 	overlap=scale splines=true
 	edge [fontsize=12]
 	node [fillcolor="#cae6df" shape=circle style=filled]
-	substance [label=substance]
 	impulse [label=impulse]
+	substance [label=substance]
 	crisis_behavior [label=crisis_behavior]
 	node [shape=box style=""]
 	q2810 [label=q2810]

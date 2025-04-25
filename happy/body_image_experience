@@ -2,9 +2,9 @@ digraph G {
 	overlap=scale splines=true
 	edge [fontsize=12]
 	node [fillcolor="#cae6df" shape=circle style=filled]
-	body_stress [label=body_stress]
 	body_info [label=body_info]
 	body_image_experience [label=body_image_experience]
+	body_stress [label=body_stress]
 	node [shape=box style=""]
 	obesity [label=obesity]
 	q4812 [label=q4812]
